@@ -12,6 +12,7 @@ namespace BankApp.ViewModels
       private readonly IRegionManager regionManager;
       private IRegionNavigationJournal journal;
       private Customer selectedCustomer;
+      private Customer originalCustomer;
 
       public CustomerInfoViewModel(IRegionManager regionManager)
       {
@@ -51,17 +52,20 @@ namespace BankApp.ViewModels
 
       public bool IsNavigationTarget(NavigationContext navigationContext)
       {
-        return true;
+          return true;
       }
 
       public void OnNavigatedFrom(NavigationContext navigationContext)
       {
+            //NavigationParameters parameter = new NavigationParameters();
+            navigationContext.Parameters.Add("editedCustomer", Model );
 
-      }
+            
+        }
 
       private void SetCustomer(Customer customer)
       {
-          Customer originalCustomer = customer;
+          originalCustomer = customer;
           Model = (Customer) customer.Clone();
 
       }

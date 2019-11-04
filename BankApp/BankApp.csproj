@@ -124,6 +124,11 @@
   <ItemGroup>
     <PackageReference Include="Prism.Unity" Version="7.1.0.431&#xD;" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Icons\icon_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\icon_edit.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
