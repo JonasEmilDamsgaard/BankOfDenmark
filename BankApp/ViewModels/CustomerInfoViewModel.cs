@@ -12,17 +12,20 @@ namespace BankApp.ViewModels
       private readonly IRegionManager regionManager;
       private IRegionNavigationJournal journal;
       private Customer selectedCustomer;
-      private Customer originalCustomer;
+      private bool isChangesInSelectedCustomer;
 
       public CustomerInfoViewModel(IRegionManager regionManager)
       {
           this.regionManager = regionManager;
 
-          DelegateCommand goBackCommand = new DelegateCommand(GoBackView);
-          GoBackCommand = goBackCommand;
+          DelegateCommand okCommand = new DelegateCommand(GoBackView);
+          OkCommand = okCommand;
+
+          DelegateCommand cancelCommand = new DelegateCommand(GoBackView);
+          CancelCommand = cancelCommand;
       }
 
-      public Customer Model
+      public Customer SelectedCustomer
       {
           get => selectedCustomer;
           set
@@ -33,19 +36,26 @@ namespace BankApp.ViewModels
           }
       }
 
-      public DelegateCommand GoBackCommand { get; }
+      public DelegateCommand OkCommand { get; }
+      public DelegateCommand CancelCommand { get; }
 
       private void GoBackView()
       {
           if (journal.CanGoBack)
+          {
               journal.GoBack();
+          }
+      }
+
+      private void SaveChanges()
+      {
+          isChangesInSelectedCustomer = true;
       }
 
       public void OnNavigatedTo(NavigationContext navigationContext)
       {
           NavigationParameters parameter = navigationContext.Parameters;
-          //Model = parameter.GetValue<Customer>("selectedCustomer");
-          SetCustomer(parameter.GetValue<Customer>("selectedCustomer"));
+          SelectedCustomer = (Customer) parameter.GetValue<Customer>("selectedCustomer").Clone();
 
           journal = navigationContext.NavigationService.Journal;
       }
@@ -57,19 +67,11 @@ namespace BankApp.ViewModels
 
       public void OnNavigatedFrom(NavigationContext navigationContext)
       {
-            //NavigationParameters parameter = new NavigationParameters();
-            navigationContext.Parameters.Add("editedCustomer", Model );
-
-            
-        }
-
-      private void SetCustomer(Customer customer)
-      {
-          originalCustomer = customer;
-          Model = (Customer) customer.Clone();
-
+          if (isChangesInSelectedCustomer)
+          {
+              navigationContext.Parameters.Add("editedCustomer", SelectedCustomer);
+              isChangesInSelectedCustomer = false;
+          }
       }
     }
-
-
 }

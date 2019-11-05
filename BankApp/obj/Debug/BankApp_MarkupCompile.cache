@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\jmda\Documents\Work\C#\BankOfDenmark\BankApp\obj\Debug\
+C:\Users\jmda\Documents\Work\C#\AOP\BankApp\obj\Debug\
 BankApp
 none
 false
 DEBUG;TRACE
-C:\Users\jmda\Documents\Work\C#\BankOfDenmark\BankApp\App.xaml
+C:\Users\jmda\Documents\Work\C#\AOP\BankApp\App.xaml
 4-1222365022
 
-17-1683416744
+181735075529
 21526850595
 MainWindow.xaml;Views\AccountView.xaml;Views\CustomerInfoView.xaml;Views\CustomerView.xaml;
 
-False
+True
 

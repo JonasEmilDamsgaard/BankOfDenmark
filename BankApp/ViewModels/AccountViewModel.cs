@@ -38,15 +38,15 @@ namespace BankApp.ViewModels
 
         private void Withdraw()
         {
-            Model.Account.Withdraw();
+            SelectedCustomer.Account.Withdraw();
         }
 
         private void Deposit()
         {
-            Model.Account.Deposit();
+            SelectedCustomer.Account.Deposit();
         }
 
-        public Customer Model
+        public Customer SelectedCustomer
         {
             get => selectedCustomer;
             set
@@ -59,9 +59,9 @@ namespace BankApp.ViewModels
 
         private void ShowCustomerInfoView()
         {
-            if (Model != null)
+            if (SelectedCustomer != null)
             {
-                NavigationParameters parameter = new NavigationParameters { { "selectedCustomer", Model } };
+                NavigationParameters parameter = new NavigationParameters { { "selectedCustomer", SelectedCustomer } };
                 regionManager.RequestNavigate("MainRegion", nameof(CustomerInfoViewModel), parameter);
             }
         }
@@ -77,7 +77,7 @@ namespace BankApp.ViewModels
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
             NavigationParameters parameter = navigationContext.Parameters;
-            Model = parameter.GetValue<Customer>("selectedCustomer");
+            SelectedCustomer = parameter.GetValue<Customer>("selectedCustomer");
 
             journal = navigationContext.NavigationService.Journal;
         }

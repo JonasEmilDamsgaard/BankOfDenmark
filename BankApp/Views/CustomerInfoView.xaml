@@ -24,22 +24,25 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Label Grid.Column="1" Grid.Row="0" Content="Social security number"/>
-            <TextBox Grid.Column="2" Grid.Row="0" Margin="0 2 0 2" Text="{Binding Model.SocialSecurityNumber, UpdateSourceTrigger=PropertyChanged}"/>
-            <Label Grid.Column="1" Grid.Row="1" Content="Full name"/>
-            <TextBox Grid.Column="2" Grid.Row="1" Margin="0 2 0 2" Text="{Binding Model.FullName, UpdateSourceTrigger=PropertyChanged}"/>
-            <Label Grid.Column="1" Grid.Row="2" Content="Street name"/>
-            <TextBox Grid.Column="2" Grid.Row="2" Margin="0 2 0 2" Text="{Binding Model.StreetName, UpdateSourceTrigger=PropertyChanged}"/>
-            <Label Grid.Column="1" Grid.Row="3" Content="Street number"/>
-            <TextBox Grid.Column="2" Grid.Row="3" Margin="0 2 0 2" Text="{Binding Model.StreetNumber, UpdateSourceTrigger=PropertyChanged}"/>
-            <Label Grid.Column="1" Grid.Row="4" Content="Postal code"/>
-            <TextBox Grid.Column="2" Grid.Row="4" Margin="0 2 0 2" Text="{Binding Model.PostalCode, UpdateSourceTrigger=PropertyChanged}"/>
-            <Label Grid.Column="1" Grid.Row="5" Content="City"/>
-            <TextBox Grid.Column="2" Grid.Row="5" Margin="0 2 0 2" Text="{Binding Model.City, UpdateSourceTrigger=PropertyChanged}"/>
-            <Label Grid.Column="1" Grid.Row="6" Content="Phone number"/>
-            <TextBox Grid.Column="2" Grid.Row="6" Margin="0 2 0 2" Text="{Binding Model.PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Grid.Column="1" Grid.Row="0" Content="ID"/>
+            <TextBox Grid.Column="2" Grid.Row="0" Margin="0 2 0 2" Text="{Binding SelectedCustomer.Id, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+            <Label Grid.Column="1" Grid.Row="1" Content="Social security number"/>
+            <TextBox Grid.Column="2" Grid.Row="1" Margin="0 2 0 2" Text="{Binding SelectedCustomer.SocialSecurityNumber, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Grid.Column="1" Grid.Row="2" Content="Full name"/>
+            <TextBox Grid.Column="2" Grid.Row="2" Margin="0 2 0 2" Text="{Binding SelectedCustomer.FullName, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Grid.Column="1" Grid.Row="3" Content="Street name"/>
+            <TextBox Grid.Column="2" Grid.Row="3" Margin="0 2 0 2" Text="{Binding SelectedCustomer.StreetName, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Grid.Column="1" Grid.Row="4" Content="Street number"/>
+            <TextBox Grid.Column="2" Grid.Row="4" Margin="0 2 0 2" Text="{Binding SelectedCustomer.StreetNumber, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Grid.Column="1" Grid.Row="5" Content="Postal code"/>
+            <TextBox Grid.Column="2" Grid.Row="5" Margin="0 2 0 2" Text="{Binding SelectedCustomer.PostalCode, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Grid.Column="1" Grid.Row="6" Content="City"/>
+            <TextBox Grid.Column="2" Grid.Row="6" Margin="0 2 0 2" Text="{Binding SelectedCustomer.City, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Grid.Column="1" Grid.Row="7" Content="Phone number"/>
+            <TextBox Grid.Column="2" Grid.Row="7" Margin="0 2 0 2" Text="{Binding SelectedCustomer.PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
 
         <TextBox Padding="10" BorderThickness="0" IsEnabled="False"/>
@@ -48,6 +51,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10"/>
                 <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="90"/>
                 <ColumnDefinition Width="*"/>
 
             </Grid.ColumnDefinitions>
@@ -55,7 +59,8 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Button Grid.Column="1" Margin="2 2 2 2" Command="{Binding GoBackCommand}">Go back</Button>
+            <Button Grid.Column="1" Margin="2 2 2 2" ToolTip="Save changes and return" Command="{Binding GoBackCommand}">Go back</Button>
+            <Button Grid.Column="2" Margin="2 2 2 2" ToolTip="Discard changes and return" Command="{Binding SaveChangesCommand}">Save changes</Button>
         </Grid>
 
     </StackPanel>

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using BankApp.Annotations;
 
@@ -11,6 +12,7 @@ namespace BankApp.Models
 {
     public class Customer : INotifyPropertyChanged, ICloneable
     {
+        private Guid id;
         private string socialSecurityNumber;
         private string fullName;
         private string streetName;
@@ -24,6 +26,18 @@ namespace BankApp.Models
         {
             FullName = fullName;
             Account = new Account();
+            Id = Guid.NewGuid();
+        }
+
+        public Guid Id
+        {
+            get => id;
+            private set
+            {
+                if (Equals(value, id)) return;
+                id = value;
+                OnPropertyChanged();
+            }
         }
 
         public string SocialSecurityNumber

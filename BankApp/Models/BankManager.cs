@@ -24,7 +24,6 @@ namespace BankApp.Models
             Customers.Add(new Customer("Jonas"));
             Customers.Add(new Customer("Peter"));
             UpdateView();
-            SelectedCustomer = filteredCustomers.FirstOrDefault();
         }
 
         public Customer SelectedCustomer

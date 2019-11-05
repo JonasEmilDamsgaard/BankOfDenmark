@@ -16,7 +16,7 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="120"/>
+                <RowDefinition Height="200"/>
             </Grid.RowDefinitions>
 
             <Label Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Content="Search:"/>
@@ -25,7 +25,7 @@
 
             <ListBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Model.FilteredCustomers}" SelectedItem="{Binding Model.SelectedCustomer, Mode=TwoWay}">
                 <ListBox.ItemTemplate>
-                    <DataTemplate DataType="models:Customer">
+                    <DataTemplate DataType="models:Customer"> 
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="700"/>
@@ -34,15 +34,37 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Column ="0" Margin="0 0 10 0">
+                            <TextBlock Grid.Column ="0" Margin="0 0 10 0" HorizontalAlignment="Stretch" >
                                 <Run Text="{Binding FullName}"/>
                             </TextBlock>
 
-                            <Button Grid.Column ="1" HorizontalAlignment="Center" BorderThickness="0" Background="Transparent">
-                                <Path Data="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" Fill="Black" />
+                            <Button Grid.Column="1" BorderThickness="0" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBox}}, Path=DataContext.ShowAccountCommand}">
+                                <Button.Style>
+
+                                    <Style TargetType="{x:Type Button}">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBoxItem}},Path=IsSelected}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <Image x:Name="MyImage" MaxHeight="18" Source="\Icons\icon_edit.png"/>
                             </Button>
 
-                            <Button Grid.Column="3" HorizontalAlignment="Center" BorderThickness="0" Background="Transparent">
+                            <Button Grid.Column="3" BorderThickness="0" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBox}}, Path=DataContext.DeleteCustomerCommand}">
+                                <Button.Style>
+
+                                    <Style TargetType="{x:Type Button}">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBoxItem}},Path=IsSelected}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
                                 <Image MaxHeight="18" Source="\Icons\icon_delete.png"/>
                             </Button>
 
@@ -60,6 +82,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="10"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -69,13 +92,7 @@
             <Button Grid.Column="1" Margin="2 2 2 2" Command="{Binding AddCustomerCommand}">Add customer</Button>
             <Button Grid.Column="2" Margin="2 2 2 2" Command="{Binding DeleteCustomerCommand}">Delete customer</Button>
             <Button Grid.Column="3" Margin="2 2 2 2" Command="{Binding ShowAccountCommand}">Show account</Button>
+            <Button Grid.Column="4" Margin="2 2 2 2" Command="{Binding ShowCustomerInfoCommand}">Show customer info</Button>
         </Grid>
-
-
-        <!--<Grid Background="Pink">
-
-            <Button Content="Customer details" Command="{Binding CustomerDetailsCommand}" VerticalAlignment="Bottom"></Button>
-        </Grid>-->
-
     </StackPanel>
 </UserControl>
