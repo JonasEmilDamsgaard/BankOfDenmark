@@ -17,16 +17,16 @@ namespace BankApp.ViewModels
         {
             this.regionManager = regionManager;
 
-            DelegateCommand withDrawCommand = new DelegateCommand(Withdraw);
+            DelegateCommand withDrawCommand = new DelegateCommand(OnWithdraw);
             WithDrawCommand = withDrawCommand;
 
-            DelegateCommand depositCommand = new DelegateCommand(Deposit);
+            DelegateCommand depositCommand = new DelegateCommand(OnDeposit);
             DepositCommand = depositCommand;
 
-            DelegateCommand editCustomerCommand = new DelegateCommand(ShowCustomerInfoView);
+            DelegateCommand editCustomerCommand = new DelegateCommand(OnShowCustomerInfoView);
             EditCustomerCommand = editCustomerCommand;
 
-            DelegateCommand goBackCommand = new DelegateCommand(GoBackView);
+            DelegateCommand goBackCommand = new DelegateCommand(OnGoBack);
             GoBackCommand = goBackCommand;
         }
 
@@ -35,29 +35,29 @@ namespace BankApp.ViewModels
         public DelegateCommand EditCustomerCommand { get; }
         public DelegateCommand GoBackCommand { get; }
 
-
-        private void Withdraw()
-        {
-            SelectedCustomer.Account.Withdraw();
-        }
-
-        private void Deposit()
-        {
-            SelectedCustomer.Account.Deposit();
-        }
-
         public Customer SelectedCustomer
         {
             get => selectedCustomer;
             set
             {
-                if( selectedCustomer == value) return;
+                if (selectedCustomer == value) return;
                 selectedCustomer = value;
                 RaisePropertyChanged();
             }
         }
 
-        private void ShowCustomerInfoView()
+        private void OnWithdraw()
+        {
+            SelectedCustomer.Account.Withdraw();
+        }
+
+        private void OnDeposit()
+        {
+            SelectedCustomer.Account.Deposit();
+        }
+
+
+        private void OnShowCustomerInfoView()
         {
             if (SelectedCustomer != null)
             {
@@ -66,10 +66,8 @@ namespace BankApp.ViewModels
             }
         }
 
-        private void GoBackView()
+        private void OnGoBack()
         {
-            //regionManager.RequestNavigate("MainRegion", nameof(CustomerView));
-
             if (journal.CanGoBack)
                 journal.GoBack();
         }

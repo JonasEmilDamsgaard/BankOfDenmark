@@ -12,18 +12,20 @@ namespace BankApp.ViewModels
       private readonly IRegionManager regionManager;
       private IRegionNavigationJournal journal;
       private Customer selectedCustomer;
-      private bool isChangesInSelectedCustomer;
+      private bool isChanges;
 
       public CustomerInfoViewModel(IRegionManager regionManager)
       {
           this.regionManager = regionManager;
 
-          DelegateCommand okCommand = new DelegateCommand(GoBackView);
+          DelegateCommand okCommand = new DelegateCommand(OnOkCommand);
           OkCommand = okCommand;
 
-          DelegateCommand cancelCommand = new DelegateCommand(GoBackView);
+          DelegateCommand cancelCommand = new DelegateCommand(OnGoBack);
           CancelCommand = cancelCommand;
       }
+      public DelegateCommand OkCommand { get; }
+      public DelegateCommand CancelCommand { get; }
 
       public Customer SelectedCustomer
       {
@@ -36,20 +38,18 @@ namespace BankApp.ViewModels
           }
       }
 
-      public DelegateCommand OkCommand { get; }
-      public DelegateCommand CancelCommand { get; }
+      private void OnOkCommand()
+      {
+          isChanges = true;
+          OnGoBack();
+      }
 
-      private void GoBackView()
+      private void OnGoBack()
       {
           if (journal.CanGoBack)
           {
               journal.GoBack();
           }
-      }
-
-      private void SaveChanges()
-      {
-          isChangesInSelectedCustomer = true;
       }
 
       public void OnNavigatedTo(NavigationContext navigationContext)
@@ -67,10 +67,10 @@ namespace BankApp.ViewModels
 
       public void OnNavigatedFrom(NavigationContext navigationContext)
       {
-          if (isChangesInSelectedCustomer)
+          if (isChanges)
           {
               navigationContext.Parameters.Add("editedCustomer", SelectedCustomer);
-              isChangesInSelectedCustomer = false;
+              isChanges = false;
           }
       }
     }
