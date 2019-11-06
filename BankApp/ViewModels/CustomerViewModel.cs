@@ -22,10 +22,10 @@ namespace BankApp.ViewModels
             DelegateCommand deleteCustomerCommand = new DelegateCommand(Model.DeleteCustomer);
             DeleteCustomerCommand = deleteCustomerCommand;
 
-            DelegateCommand showAccountCommand = new DelegateCommand(ShowAccountView);
+            DelegateCommand showAccountCommand = new DelegateCommand(OnShowAccountView);
             ShowAccountCommand = showAccountCommand;
 
-            DelegateCommand showCustomerInfoCommand = new DelegateCommand(ShowCustomerInfoView);
+            DelegateCommand showCustomerInfoCommand = new DelegateCommand(OnShowCustomerInfoView);
             ShowCustomerInfoCommand = showCustomerInfoCommand;
         }
 
@@ -35,7 +35,7 @@ namespace BankApp.ViewModels
         public DelegateCommand ShowAccountCommand { get; }
         public DelegateCommand ShowCustomerInfoCommand { get; }
 
-        private void ShowAccountView()
+        private void OnShowAccountView()
         {
             if (Model.SelectedCustomer != null)
             {
@@ -44,7 +44,7 @@ namespace BankApp.ViewModels
             }
         }
 
-        private void ShowCustomerInfoView()
+        private void OnShowCustomerInfoView()
         {
             if (Model.SelectedCustomer != null)
             {
@@ -59,21 +59,16 @@ namespace BankApp.ViewModels
 
             if (parameter.ContainsKey("editedCustomer"))
             {
-                var updatedCustomer = parameter.GetValue<Customer>("editedCustomer");
-
+                Customer updatedCustomer = parameter.GetValue<Customer>("editedCustomer");
                 //var updatedCustomer = parameter["editedCustomer"] as Customer;
+
                 if (updatedCustomer != null)
                 {
-                    //Update model
-                    var customer = Model.Customers.FirstOrDefault(c => c.Account == updatedCustomer.Account);
-                    //customer.FullName = updateddata.FullName;
+                    var customer = Model.Customers.FirstOrDefault(c => c.Id == updatedCustomer.Id);
                     Model.FilteredCustomers.Remove(customer);
-                    Model.FilteredCustomers.Add( updatedCustomer );
+                    Model.FilteredCustomers.Add(updatedCustomer);
                 }
             }
-
-            //if (parameter.ContainsKey("selectedCustomer"))
-            //    Model.SelectedCustomer = parameter.GetValue<Customer>("selectedCustomer");
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
