@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Linq;
+﻿using System.Linq;
 using BankApp.Models;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -22,6 +21,9 @@ namespace BankApp.ViewModels
             DelegateCommand deleteCustomerCommand = new DelegateCommand(Model.DeleteCustomer);
             DeleteCustomerCommand = deleteCustomerCommand;
 
+            DelegateCommand sortCustomersCommand = new DelegateCommand(Model.SortCustomers);
+            SortCustomersCommand = sortCustomersCommand;
+
             DelegateCommand showAccountCommand = new DelegateCommand(OnShowAccountView);
             ShowAccountCommand = showAccountCommand;
 
@@ -32,6 +34,7 @@ namespace BankApp.ViewModels
         public BankManager Model { get; set; }
         public DelegateCommand AddCustomerCommand { get; }
         public DelegateCommand DeleteCustomerCommand { get; }
+        public DelegateCommand SortCustomersCommand { get; }
         public DelegateCommand ShowAccountCommand { get; }
         public DelegateCommand ShowCustomerInfoCommand { get; }
 

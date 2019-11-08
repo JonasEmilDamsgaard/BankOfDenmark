@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using BankApp.Models;
+﻿using BankApp.Models;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;

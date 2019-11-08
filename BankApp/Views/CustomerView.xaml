@@ -18,7 +18,8 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="250" />
+                <ColumnDefinition Width="25" />
                 <ColumnDefinition Width="10" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -36,17 +37,25 @@
                 Margin="0,2,0,2"
                 Text="{Binding Model.Filter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 TextAlignment="Right" />
+            <Button
+                Grid.Row="0"
+                Grid.Column="3"
+                Margin="2,2,0,2"
+                Command="{Binding SortCustomersCommand}"
+                ToolTip="Sort by name">
+                &#8645;
+            </Button>
             <ListBox
                 Grid.Row="1"
                 Grid.Column="1"
-                Grid.ColumnSpan="2"
+                Grid.ColumnSpan="3"
                 ItemsSource="{Binding Model.FilteredCustomers}"
                 SelectedItem="{Binding Model.SelectedCustomer, Mode=TwoWay}">
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="models:Customer">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="680" />
+                                <ColumnDefinition Width="660" />
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />

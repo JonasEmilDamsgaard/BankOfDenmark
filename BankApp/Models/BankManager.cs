@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using BankApp.Annotations;
 
 namespace BankApp.Models
@@ -16,6 +13,7 @@ namespace BankApp.Models
         private Customer selectedCustomer;
         private ObservableCollection<Customer> filteredCustomers = new ObservableCollection<Customer>();
         private string filter = "";
+        private bool toggle;
 
         public BankManager()
         {
@@ -99,5 +97,17 @@ namespace BankApp.Models
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public void SortCustomers()
+        {
+            if (toggle)
+                FilteredCustomers = new ObservableCollection<Customer>(FilteredCustomers.OrderByDescending(c => c));
+            else
+                FilteredCustomers = new ObservableCollection<Customer>(FilteredCustomers.OrderBy(c => c));
+
+            toggle = !toggle;
+        }
+
+
     }
 }

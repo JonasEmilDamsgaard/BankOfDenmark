@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using BankApp.Annotations;
 
 namespace BankApp.Models
 {
-    public class Customer : INotifyPropertyChanged, ICloneable
+    public class Customer : INotifyPropertyChanged, ICloneable, IComparable
     {
         private Guid id;
         private string socialSecurityNumber;
@@ -140,6 +136,12 @@ namespace BankApp.Models
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public int CompareTo(object obj)
+        {
+            Customer customer = (Customer) obj;
+            return string.CompareOrdinal(FullName, customer.FullName);
         }
     }
 }
