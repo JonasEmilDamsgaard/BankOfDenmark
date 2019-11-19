@@ -1,17 +1,17 @@
-﻿using System;
-using BankApp.Views;
+﻿using BankApp.Views;
 using System.Windows;
-using BankApp.Models;
 using BankApp.ViewModels;
+using Data.Models;
 using Prism.Ioc;
 using Prism.Regions;
+using Prism.Unity;
 
 namespace BankApp
 {
   /// <summary>
   /// Interaction logic for App.xaml
   /// </summary>
-  public partial class App
+  public partial class App : PrismApplication
   {
     protected override Window CreateShell()
     {

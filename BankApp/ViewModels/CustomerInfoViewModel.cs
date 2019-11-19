@@ -1,4 +1,4 @@
-﻿using BankApp.Models;
+﻿using Data.Models;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;

@@ -1,9 +1,7 @@
-﻿using BankApp.Models;
-using BankApp.Views;
+﻿using Data.Models;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
-
 
 namespace BankApp.ViewModels
 {

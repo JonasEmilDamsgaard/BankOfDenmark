@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using BankApp.Models;
+﻿using Data.Models;
+using System.Linq;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;

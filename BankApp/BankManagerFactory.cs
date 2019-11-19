@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using BankApp.Models;
+using Data.Models;
 
 namespace BankApp
 {
