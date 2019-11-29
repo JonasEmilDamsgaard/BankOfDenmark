@@ -6,7 +6,7 @@ using Data.Annotations;
 
 namespace Data.Models
 {
-    public class Customer : INotifyPropertyChanged, ICloneable, IComparable
+    public class Customer : INotifyPropertyChanged, ICloneable, IComparable, IEntity
     {
         private string socialSecurityNumber;
         private string fullName;
@@ -28,7 +28,7 @@ namespace Data.Models
             Guid = Guid.NewGuid();
         }
 
-        public uint Id { get; set; }
+        public int Id { get; set; }
         public Guid Guid { get; }
 
         public string SocialSecurityNumber

@@ -1,6 +1,8 @@
 ﻿using BankApp.Views;
 using System.Windows;
+using BankApp.Database;
 using BankApp.ViewModels;
+using Data.EF;
 using Data.Models;
 using Prism.Ioc;
 using Prism.Regions;
@@ -22,6 +24,9 @@ namespace BankApp
     {
       //var bankManager = BankManagerFactory.Create();
       containerRegistry.RegisterSingleton<BankManager>(); //Local singleton
+      containerRegistry.Register(typeof(CustomerContext));
+      containerRegistry.Register(typeof(ICustomerRepository), typeof(CustomerRepository));
+      containerRegistry.Register(typeof(IUnitOfWork), typeof(UnitOfWork));
 
       containerRegistry.RegisterForNavigation<CustomerView>(nameof(CustomerViewModel));
       containerRegistry.RegisterForNavigation<CustomerInfoView>(nameof(CustomerInfoViewModel));

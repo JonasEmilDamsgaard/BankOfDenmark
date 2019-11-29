@@ -1,4 +1,6 @@
-﻿using Data.Models;
+﻿using System;
+using BankApp.Database;
+using Data.Models;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -8,12 +10,14 @@ namespace BankApp.ViewModels
     public class AccountViewModel : BindableBase, INavigationAware
     {
         private readonly IRegionManager regionManager;
+        private readonly IUnitOfWork unitOfWork;
         private IRegionNavigationJournal journal;
         private Customer selectedCustomer;
 
-        public AccountViewModel(IRegionManager regionManager)
+        public AccountViewModel(IRegionManager regionManager, IUnitOfWork unitOfWork)
         {
             this.regionManager = regionManager;
+            this.unitOfWork = unitOfWork;
 
             DelegateCommand withDrawCommand = new DelegateCommand(OnWithdraw);
             WithDrawCommand = withDrawCommand;
@@ -21,8 +25,6 @@ namespace BankApp.ViewModels
             DelegateCommand depositCommand = new DelegateCommand(OnDeposit);
             DepositCommand = depositCommand;
 
-            DelegateCommand editCustomerCommand = new DelegateCommand(OnShowCustomerInfoView);
-            EditCustomerCommand = editCustomerCommand;
 
             DelegateCommand goBackCommand = new DelegateCommand(OnGoBack);
             GoBackCommand = goBackCommand;
@@ -30,7 +32,6 @@ namespace BankApp.ViewModels
 
         public DelegateCommand WithDrawCommand { get; set; }
         public DelegateCommand DepositCommand { get; set; }
-        public DelegateCommand EditCustomerCommand { get; }
         public DelegateCommand GoBackCommand { get; }
 
         public Customer SelectedCustomer
@@ -55,15 +56,6 @@ namespace BankApp.ViewModels
         }
 
 
-        private void OnShowCustomerInfoView()
-        {
-            if (SelectedCustomer != null)
-            {
-                NavigationParameters parameter = new NavigationParameters { { "selectedCustomer", SelectedCustomer } };
-                regionManager.RequestNavigate("MainRegion", nameof(CustomerInfoViewModel), parameter);
-            }
-        }
-
         private void OnGoBack()
         {
             if (journal.CanGoBack)
@@ -73,7 +65,9 @@ namespace BankApp.ViewModels
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
             NavigationParameters parameter = navigationContext.Parameters;
-            SelectedCustomer = parameter.GetValue<Customer>("selectedCustomer");
+            var id = parameter.GetValue<int>("selectedCustomer");
+
+            SelectedCustomer = unitOfWork.Customers.GetById(id);
 
             journal = navigationContext.NavigationService.Journal;
         }
@@ -85,6 +79,8 @@ namespace BankApp.ViewModels
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
+          unitOfWork.Complete();
+          //unitOfWork.Dispose();
         }
     }
 }

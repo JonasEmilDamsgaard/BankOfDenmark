@@ -5,14 +5,14 @@ using Data.Annotations;
 
 namespace Data.Models
 {
-    public class Account : INotifyPropertyChanged
+    public class Account : INotifyPropertyChanged, IEntity
     {
         private decimal balance;
         private decimal amount;
         private State state = State.Active;
         private const int CreditLimit = -5000;
 
-        public uint Id { get; set; }
+        public int Id { get; set; }
 
         public decimal Balance
         {

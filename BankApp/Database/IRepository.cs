@@ -5,7 +5,7 @@ using Data;
 
 namespace BankApp.Database
 {
-  interface IRepository<T> where T : IEntity
+  public interface IRepository<T> where T : IEntity
   {
     T GetById(int id);
     IQueryable<T> GetAll();

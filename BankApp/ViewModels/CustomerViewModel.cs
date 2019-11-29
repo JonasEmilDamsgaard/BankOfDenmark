@@ -1,5 +1,7 @@
-﻿using Data.Models;
+﻿using System.Collections.ObjectModel;
+using Data.Models;
 using System.Linq;
+using BankApp.Database;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -9,10 +11,12 @@ namespace BankApp.ViewModels
     public class CustomerViewModel : BindableBase, INavigationAware
     {
         private readonly IRegionManager regionManager;
+        private readonly IUnitOfWork unitOfWork;
 
-        public CustomerViewModel(IRegionManager regionManager, BankManager bankManager)
+        public CustomerViewModel(IRegionManager regionManager, BankManager bankManager, IUnitOfWork unitOfWork)
         {
             this.regionManager = regionManager;
+            this.unitOfWork = unitOfWork;
             Model = bankManager;
 
             DelegateCommand addCustomerCommand = new DelegateCommand(Model.AddCustomer);
@@ -42,7 +46,7 @@ namespace BankApp.ViewModels
         {
             if (Model.SelectedCustomer != null)
             {
-                NavigationParameters parameter = new NavigationParameters { { "selectedCustomer", Model.SelectedCustomer } };
+                NavigationParameters parameter = new NavigationParameters{{ "selectedCustomer", Model.SelectedCustomer.Id }};
                 regionManager.RequestNavigate("MainRegion", nameof(AccountViewModel), parameter);
             }
         }
@@ -51,27 +55,30 @@ namespace BankApp.ViewModels
         {
             if (Model.SelectedCustomer != null)
             {
-                NavigationParameters parameter = new NavigationParameters { { "selectedCustomer", Model.SelectedCustomer } };
+                NavigationParameters parameter = new NavigationParameters{{ "selectedCustomer", Model.SelectedCustomer.Id }};
                 regionManager.RequestNavigate("MainRegion", nameof(CustomerInfoViewModel), parameter);
             }
         }
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            NavigationParameters parameter = navigationContext.Parameters;
+            //NavigationParameters parameter = navigationContext.Parameters;
 
-            if (parameter.ContainsKey("editedCustomer"))
-            {
-                Customer updatedCustomer = parameter.GetValue<Customer>("editedCustomer");
+            //if (parameter.ContainsKey("editedCustomer"))
+            //{
+                //Customer updatedCustomer = parameter.GetValue<Customer>("editedCustomer");
                 //var updatedCustomer = parameter["editedCustomer"] as Customer;
 
-                if (updatedCustomer != null)
-                {
-                    var customer = Model.Customers.FirstOrDefault(c => c.Id == updatedCustomer.Id);
-                    Model.FilteredCustomers.Remove(customer);
-                    Model.FilteredCustomers.Add(updatedCustomer);
-                }
-            }
+                //if (updatedCustomer != null)
+                //{
+                //    var customer = Model.Customers.FirstOrDefault(c => c.Id == updatedCustomer.Id);
+                //    Model.FilteredCustomers.Remove(customer);
+                //    Model.FilteredCustomers.Add(updatedCustomer);
+                //}
+            //}
+
+            Model.Customers.Clear();
+            Model.Customers.AddRange(unitOfWork.Customers.GetAll());
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)

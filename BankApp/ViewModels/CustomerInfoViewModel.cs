@@ -1,4 +1,5 @@
-﻿using Data.Models;
+﻿using BankApp.Database;
+using Data.Models;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -8,13 +9,16 @@ namespace BankApp.ViewModels
     public class CustomerInfoViewModel : BindableBase, INavigationAware
     {
       private readonly IRegionManager regionManager;
+      private readonly IUnitOfWork unitOfWork;
       private IRegionNavigationJournal journal;
       private Customer selectedCustomer;
-      private bool isChanges;
+      //private bool isChanges;
+      private Customer originalCustomer;
 
-      public CustomerInfoViewModel(IRegionManager regionManager)
+      public CustomerInfoViewModel(IRegionManager regionManager, IUnitOfWork unitOfWork)
       {
           this.regionManager = regionManager;
+          this.unitOfWork = unitOfWork;
 
           DelegateCommand okCommand = new DelegateCommand(OnOkCommand);
           OkCommand = okCommand;
@@ -38,7 +42,18 @@ namespace BankApp.ViewModels
 
       private void OnOkCommand()
       {
-          isChanges = true;
+          //isChanges = true;
+
+          originalCustomer.FullName = SelectedCustomer.FullName;
+          originalCustomer.Account = SelectedCustomer.Account;
+          originalCustomer.City = SelectedCustomer.City;
+          originalCustomer.PhoneNumber = SelectedCustomer.PhoneNumber;
+          originalCustomer.PostalCode = SelectedCustomer.PostalCode;
+          originalCustomer.SocialSecurityNumber = SelectedCustomer.SocialSecurityNumber;
+          originalCustomer.StreetName = SelectedCustomer.StreetName;
+          originalCustomer.StreetNumber = SelectedCustomer.StreetNumber;
+
+          unitOfWork.Complete();
           OnGoBack();
       }
 
@@ -53,7 +68,10 @@ namespace BankApp.ViewModels
       public void OnNavigatedTo(NavigationContext navigationContext)
       {
           NavigationParameters parameter = navigationContext.Parameters;
-          SelectedCustomer = (Customer) parameter.GetValue<Customer>("selectedCustomer").Clone();
+          var id = parameter.GetValue<int>("selectedCustomer");
+
+          originalCustomer = unitOfWork.Customers.GetById(id);
+          SelectedCustomer = originalCustomer.Clone() as Customer;
 
           journal = navigationContext.NavigationService.Journal;
       }
@@ -65,11 +83,6 @@ namespace BankApp.ViewModels
 
       public void OnNavigatedFrom(NavigationContext navigationContext)
       {
-          if (isChanges)
-          {
-              navigationContext.Parameters.Add("editedCustomer", SelectedCustomer);
-              isChanges = false;
-          }
       }
     }
 }

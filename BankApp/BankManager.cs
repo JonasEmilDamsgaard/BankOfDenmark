@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using BankApp.Database;
 using Data.Annotations;
 using Data.EF;
 using Data.Models;
@@ -18,15 +19,16 @@ namespace BankApp
 
         public BankManager()
         {
-            CustomerContext context = new CustomerContext();
-            //context.Add(new Customer("Hej"));
-            //context.Add(new Customer("Jonas"));
-            //context.Add(new Customer("Peter"));
-            //context.SaveChanges();
+            IRepository<Customer> repository = new CustomerRepository(new CustomerContext());
 
-            context.Customers.FirstOrDefault().FullName += "Hej";
-            context.SaveChanges();
-            Customers = new ObservableCollection<Customer>(context.Customers);
+            //repository.Add(new Customer("Hej"));
+            //repository.Add(new Customer("Jonas"));
+            //repository.Add(new Customer("Peter"));
+
+
+            //context.Customers.FirstOrDefault().FullName += "Hej";
+            //context.SaveChanges();
+            Customers = new ObservableCollection<Customer>(repository.GetAll());
             //Customers.Add(new Customer("Anders"));
             //Customers.Add(new Customer("Jonas"));
             //Customers.Add(new Customer("Peter"));
@@ -47,25 +49,28 @@ namespace BankApp
 
         public ObservableCollection<Customer> FilteredCustomers
         {
-            get => filteredCustomers;
-            set
-            {
-                if (Equals(value, filteredCustomers)) return;
-                filteredCustomers = value;
-                OnPropertyChanged();
-            }
+          get => filteredCustomers;
+          set
+          {
+            if (Equals(value, filteredCustomers)) return;
+            filteredCustomers = value;
+            OnPropertyChanged();
+          }
         }
 
         public string Filter
-        {
-            get => filter;
-            set
             {
-                if (Equals(value, filter)) return;
-                filter = value;
-                UpdateView();
+                get => filter;
+                set
+                {
+                    if (Equals(value, filter)) return;
+                    filter = value;
+                    UpdateView();
+                }
             }
-        }
+
+            public decimal TotalDeposits { get; set; }
+            public decimal TotalWithdraws { get; set; }
 
         private void UpdateView()
         {
@@ -79,8 +84,8 @@ namespace BankApp
             {
                 foreach (Customer customer in Customers)
                 {
-                    if (customer.FullName.ToLower().Contains(Filter.ToLower()))
-                        FilteredCustomers.Add(customer);
+                  if (customer.FullName.ToLower().Contains(Filter.ToLower()))
+                    FilteredCustomers.Add(customer);
                 }
             }
 
@@ -116,7 +121,5 @@ namespace BankApp
 
             toggle = !toggle;
         }
-
-
     }
 }
