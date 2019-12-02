@@ -1,5 +1,5 @@
 ﻿using System;
-using BankApp.Database;
+using BankApp.DataAccess;
 using Data.Models;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -25,7 +25,6 @@ namespace BankApp.ViewModels
             DelegateCommand depositCommand = new DelegateCommand(OnDeposit);
             DepositCommand = depositCommand;
 
-
             DelegateCommand goBackCommand = new DelegateCommand(OnGoBack);
             GoBackCommand = goBackCommand;
         }
@@ -36,13 +35,13 @@ namespace BankApp.ViewModels
 
         public Customer SelectedCustomer
         {
-            get => selectedCustomer;
-            set
-            {
-                if (selectedCustomer == value) return;
-                selectedCustomer = value;
-                RaisePropertyChanged();
-            }
+          get => selectedCustomer;
+          set
+          {
+            if (selectedCustomer == value) return;
+            selectedCustomer = value;
+            RaisePropertyChanged();
+          }
         }
 
         private void OnWithdraw()
@@ -80,7 +79,6 @@ namespace BankApp.ViewModels
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
           unitOfWork.Complete();
-          //unitOfWork.Dispose();
         }
     }
 }

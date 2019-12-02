@@ -1,6 +1,8 @@
 ﻿using BankApp.Views;
 using System.Windows;
-using BankApp.Database;
+using BankApp.DataAccess;
+using BankApp.DataAccess.Repositories;
+using BankApp.Services;
 using BankApp.ViewModels;
 using Data.EF;
 using Data.Models;
@@ -24,9 +26,11 @@ namespace BankApp
     {
       //var bankManager = BankManagerFactory.Create();
       containerRegistry.RegisterSingleton<BankManager>(); //Local singleton
-      containerRegistry.Register(typeof(CustomerContext));
+
+      containerRegistry.Register(typeof(DatabaseContext));
       containerRegistry.Register(typeof(ICustomerRepository), typeof(CustomerRepository));
       containerRegistry.Register(typeof(IUnitOfWork), typeof(UnitOfWork));
+      containerRegistry.Register(typeof(CustomerService));
 
       containerRegistry.RegisterForNavigation<CustomerView>(nameof(CustomerViewModel));
       containerRegistry.RegisterForNavigation<CustomerInfoView>(nameof(CustomerInfoViewModel));

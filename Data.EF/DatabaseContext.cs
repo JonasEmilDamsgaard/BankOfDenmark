@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data.EF
 {
-  public class CustomerContext : DbContext
+  public class DatabaseContext : DbContext
   {
-    public CustomerContext()
+    public DatabaseContext()
     {
       //base.Database.EnsureDeleted();
       base.Database.EnsureCreated();

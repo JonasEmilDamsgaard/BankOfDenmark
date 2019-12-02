@@ -3,6 +3,6 @@
     public enum State
     {
         Active,
-        Overdrawn,
+        Overdrawn
     }
 }

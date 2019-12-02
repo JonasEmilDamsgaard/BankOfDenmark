@@ -1,4 +1,4 @@
-﻿using BankApp.Database;
+﻿using BankApp.DataAccess;
 using Data.Models;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -12,7 +12,6 @@ namespace BankApp.ViewModels
       private readonly IUnitOfWork unitOfWork;
       private IRegionNavigationJournal journal;
       private Customer selectedCustomer;
-      //private bool isChanges;
       private Customer originalCustomer;
 
       public CustomerInfoViewModel(IRegionManager regionManager, IUnitOfWork unitOfWork)
@@ -42,8 +41,6 @@ namespace BankApp.ViewModels
 
       private void OnOkCommand()
       {
-          //isChanges = true;
-
           originalCustomer.FullName = SelectedCustomer.FullName;
           originalCustomer.Account = SelectedCustomer.Account;
           originalCustomer.City = SelectedCustomer.City;
