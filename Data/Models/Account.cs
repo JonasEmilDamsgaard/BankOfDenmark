@@ -10,16 +10,6 @@ namespace Data.Models
         public int Id { get; set; }
         public decimal Balance { get; set; }
         public decimal Amount { get; set; }
-        public State state { get; set; }
-       
-        public void Deposit()
-        {
-            Balance += Amount;
-        }
-
-        public void Withdraw()
-        {
-            Balance -= Amount;
-        }
+        public State State { get; set; }
     }
 }

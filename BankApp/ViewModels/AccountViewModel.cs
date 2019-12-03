@@ -1,5 +1,7 @@
 ﻿using System;
 using BankApp.DataAccess;
+using BankApp.Models;
+using BankApp.Services;
 using Data.Models;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -11,13 +13,16 @@ namespace BankApp.ViewModels
     {
         private readonly IRegionManager regionManager;
         private readonly IUnitOfWork unitOfWork;
+        private readonly AccountService accountService;
         private IRegionNavigationJournal journal;
         private Customer selectedCustomer;
+        private AccountWrapper accountWrapper;
 
-        public AccountViewModel(IRegionManager regionManager, IUnitOfWork unitOfWork)
+        public AccountViewModel(IRegionManager regionManager, IUnitOfWork unitOfWork, AccountService accountService)
         {
             this.regionManager = regionManager;
             this.unitOfWork = unitOfWork;
+            this.accountService = accountService;
 
             DelegateCommand withDrawCommand = new DelegateCommand(OnWithdraw);
             WithDrawCommand = withDrawCommand;
@@ -35,25 +40,37 @@ namespace BankApp.ViewModels
 
         public Customer SelectedCustomer
         {
-          get => selectedCustomer;
-          set
-          {
-            if (selectedCustomer == value) return;
-            selectedCustomer = value;
-            RaisePropertyChanged();
-          }
+            get => selectedCustomer;
+            set
+            { 
+                if (selectedCustomer == value) return;
+                selectedCustomer = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public AccountWrapper AccountWrapper
+        {
+            get => accountWrapper;
+            set
+            {
+                if (accountWrapper == value) return;
+                accountWrapper = value;
+                RaisePropertyChanged();
+            }
         }
 
         private void OnWithdraw()
         {
-            SelectedCustomer.Account.Withdraw();
+            accountService.Withdraw(SelectedCustomer.Account);
+            RaisePropertyChanged(nameof(AccountWrapper));
         }
 
         private void OnDeposit()
         {
-            SelectedCustomer.Account.Deposit();
+            accountService.Deposit(SelectedCustomer.Account);
+            RaisePropertyChanged(nameof(AccountWrapper));
         }
-
 
         private void OnGoBack()
         {
@@ -67,6 +84,7 @@ namespace BankApp.ViewModels
             var id = parameter.GetValue<int>("selectedCustomer");
 
             SelectedCustomer = unitOfWork.Customers.GetById(id);
+            AccountWrapper = new AccountWrapper(SelectedCustomer.Account);
 
             journal = navigationContext.NavigationService.Journal;
         }
@@ -78,7 +96,6 @@ namespace BankApp.ViewModels
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
-          unitOfWork.Complete();
         }
     }
 }
