@@ -1,7 +1,8 @@
-﻿using BankApp.DataAccess.Repositories;
-using Data.EF;
+﻿using Data.DataAccess;
+using Data.DataAccess.Repositories;
+using Data.EF.DataAccess.Repositories;
 
-namespace BankApp.DataAccess
+namespace Data.EF.DataAccess
 {
   public class UnitOfWork : IUnitOfWork
   {
@@ -11,11 +12,9 @@ namespace BankApp.DataAccess
     {
       this.context = context;
       Customers = new CustomerRepository(context);
-      Accounts = new AccountRepository(context);
     }
 
     public ICustomerRepository Customers { get; }
-    public IAccountRepository Accounts { get; }
 
     public int Complete()
     {

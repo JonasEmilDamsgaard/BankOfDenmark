@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace BankApp.DataAccess.Repositories
+namespace Data.DataAccess.Repositories
 {
     public interface IRepository<T> where T : class
     {

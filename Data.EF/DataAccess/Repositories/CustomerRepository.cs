@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Data.EF;
+using Data.DataAccess.Repositories;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BankApp.DataAccess.Repositories
+namespace Data.EF.DataAccess.Repositories
 {
-    class CustomerRepository : ICustomerRepository
+    public class CustomerRepository : ICustomerRepository
     {
         private readonly DatabaseContext context;
         private readonly IQueryable<Customer> specificEntities;

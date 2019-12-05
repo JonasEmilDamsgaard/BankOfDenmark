@@ -1,12 +1,11 @@
 ﻿using System;
-using BankApp.DataAccess.Repositories;
+using Data.DataAccess.Repositories;
 
-namespace BankApp.DataAccess
+namespace Data.DataAccess
 {
   public interface IUnitOfWork : IDisposable
   {
       ICustomerRepository Customers { get; }
-      IAccountRepository Accounts { get; }
       int Complete();
     }
 }

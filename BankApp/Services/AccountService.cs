@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using BankApp.DataAccess;
+using Data.DataAccess;
+using Data.EF.DataAccess;
 using Data.Models;
 
 namespace BankApp.Services
