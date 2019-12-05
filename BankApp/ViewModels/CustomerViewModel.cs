@@ -27,13 +27,15 @@ namespace BankApp.ViewModels
             this.customerRepository = customerRepository;
             this.customerService = customerService;
 
+            Customers = new ObservableCollection<Customer>();
+
             DelegateCommand addCustomerCommand = new DelegateCommand(AddCustomer);
             AddCustomerCommand = addCustomerCommand;
 
             DelegateCommand deleteCustomerCommand = new DelegateCommand(DeleteCustomer);
             DeleteCustomerCommand = deleteCustomerCommand;
 
-            DelegateCommand sortCustomersCommand = new DelegateCommand(() => SortCustomers(Customers));
+            DelegateCommand sortCustomersCommand = new DelegateCommand(SortCustomers);
             SortCustomersCommand = sortCustomersCommand;
 
             DelegateCommand showAccountCommand = new DelegateCommand(OnShowAccountView);
@@ -41,8 +43,6 @@ namespace BankApp.ViewModels
 
             DelegateCommand showCustomerInfoCommand = new DelegateCommand(OnShowCustomerInfoView);
             ShowCustomerInfoCommand = showCustomerInfoCommand;
-
-            Customers = new ObservableCollection<Customer>();
         }
 
         public DelegateCommand AddCustomerCommand { get; }
@@ -92,10 +92,11 @@ namespace BankApp.ViewModels
             SelectedCustomer = Customers.LastOrDefault();
         }
 
-        private void SortCustomers(ObservableCollection<Customer> customers)
+        private void SortCustomers()
         {
-            Customers.Clear();
+            var customers = Customers.ToList();
 
+            Customers.Clear();
             Customers.AddRange(toggle
                 ? customers.OrderByDescending(c => c.FullName)
                 : customers.OrderBy(c => c.FullName));
@@ -106,7 +107,6 @@ namespace BankApp.ViewModels
         private void FilterCustomers()
         {
             Customers.Clear();
-
             Customers.AddRange(customerRepository.Find(c => c.FullName.ToLower().Contains(Filter.ToLower())));
         }
 

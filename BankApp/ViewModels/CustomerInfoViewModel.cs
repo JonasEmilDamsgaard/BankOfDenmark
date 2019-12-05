@@ -1,4 +1,6 @@
 ﻿using BankApp.DataAccess;
+using BankApp.Models;
+using BankApp.Services;
 using Data.Models;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -10,14 +12,17 @@ namespace BankApp.ViewModels
     {
       private readonly IRegionManager regionManager;
       private readonly IUnitOfWork unitOfWork;
+      private readonly CustomerService customerService;
       private IRegionNavigationJournal journal;
       private Customer selectedCustomer;
       private Customer originalCustomer;
+      private CustomerWrapper customerWrapper;
 
-      public CustomerInfoViewModel(IRegionManager regionManager, IUnitOfWork unitOfWork)
+      public CustomerInfoViewModel(IRegionManager regionManager, IUnitOfWork unitOfWork, CustomerService customerService)
       {
           this.regionManager = regionManager;
           this.unitOfWork = unitOfWork;
+          this.customerService = customerService;
 
           DelegateCommand okCommand = new DelegateCommand(OnOkCommand);
           OkCommand = okCommand;
@@ -39,18 +44,22 @@ namespace BankApp.ViewModels
           }
       }
 
+      public CustomerWrapper CustomerWrapper
+      {
+          get => customerWrapper;
+          set
+          {
+              if (customerWrapper == value) return;
+              customerWrapper = value;
+              RaisePropertyChanged();
+          }
+      }
+
       private void OnOkCommand()
       {
-          originalCustomer.FullName = SelectedCustomer.FullName;
-          originalCustomer.Account = SelectedCustomer.Account;
-          originalCustomer.City = SelectedCustomer.City;
-          originalCustomer.PhoneNumber = SelectedCustomer.PhoneNumber;
-          originalCustomer.PostalCode = SelectedCustomer.PostalCode;
-          originalCustomer.SocialSecurityNumber = SelectedCustomer.SocialSecurityNumber;
-          originalCustomer.StreetName = SelectedCustomer.StreetName;
-          originalCustomer.StreetNumber = SelectedCustomer.StreetNumber;
+          originalCustomer = customerService.EditCustomer(SelectedCustomer);
+          RaisePropertyChanged(nameof(CustomerWrapper));
 
-          unitOfWork.Complete();
           OnGoBack();
       }
 
@@ -69,6 +78,8 @@ namespace BankApp.ViewModels
 
           originalCustomer = unitOfWork.Customers.GetById(id);
           SelectedCustomer = originalCustomer.Clone() as Customer;
+
+          CustomerWrapper = new CustomerWrapper(originalCustomer);
 
           journal = navigationContext.NavigationService.Journal;
       }

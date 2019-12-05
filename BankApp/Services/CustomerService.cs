@@ -29,5 +29,21 @@ namespace BankApp.Services
             unitOfWork.Customers.Remove(selectedCustomer);
             unitOfWork.Complete();
         }
+
+        public Customer EditCustomer(Customer selectedCustomer)
+        {
+            var c = unitOfWork.Customers.GetById(selectedCustomer.Id);
+            c.FullName = selectedCustomer.FullName;
+            c.PhoneNumber = selectedCustomer.PhoneNumber;
+            c.PostalCode = selectedCustomer.PostalCode;
+            c.City = selectedCustomer.City;
+            c.SocialSecurityNumber = selectedCustomer.SocialSecurityNumber;
+            c.StreetName = selectedCustomer.StreetName;
+            c.StreetNumber = selectedCustomer.StreetNumber;
+            
+            unitOfWork.Complete();
+
+            return c;
+        }
     }
 }

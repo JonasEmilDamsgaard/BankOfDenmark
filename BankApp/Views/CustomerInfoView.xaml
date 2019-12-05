@@ -28,17 +28,17 @@
             </Grid.RowDefinitions>
 
             <Label Grid.Column="1" Grid.Row="0" Content="ID"/>
-            <TextBox Grid.Column="2" Grid.Row="0" Margin="0 2 0 2" Text="{Binding SelectedCustomer.Id, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsEnabled="False"/>
+            <TextBox Grid.Column="2" Grid.Row="0" Margin="0 2 0 2" Text="{Binding CustomerWrapper.Id, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsEnabled="False"/>
             <Label Grid.Column="1" Grid.Row="1" Content="Social security number"/>
-            <TextBox Grid.Column="2" Grid.Row="1" Margin="0 2 0 2" Text="{Binding SelectedCustomer.SocialSecurityNumber, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Column="2" Grid.Row="1" Margin="0 2 0 2" Text="{Binding CustomerWrapper.SocialSecurityNumber, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Grid.Column="1" Grid.Row="2" Content="Full name"/>
-            <TextBox Grid.Column="2" Grid.Row="2" Margin="0 2 0 2" Text="{Binding SelectedCustomer.FullName, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Column="2" Grid.Row="2" Margin="0 2 0 2" Text="{Binding CustomerWrapper.FullName, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Grid.Column="1" Grid.Row="3" Content="Street name"/>
-            <TextBox Grid.Column="2" Grid.Row="3" Margin="0 2 0 2" Text="{Binding SelectedCustomer.StreetName, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Column="2" Grid.Row="3" Margin="0 2 0 2" Text="{Binding CustomerWrapper.StreetName, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Grid.Column="1" Grid.Row="4" Content="Street number"/>
-            <TextBox Grid.Column="2" Grid.Row="4" Margin="0 2 0 2" Text="{Binding SelectedCustomer.StreetNumber, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Column="2" Grid.Row="4" Margin="0 2 0 2" Text="{Binding CustomerWrapper.StreetNumber, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Grid.Column="1" Grid.Row="5" Content="Postal code"/>
-            <TextBox Grid.Column="2" Grid.Row="5" Margin="0 2 0 2" Text="{Binding SelectedCustomer.PostalCode, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Column="2" Grid.Row="5" Margin="0 2 0 2" Text="{Binding CustomerWrapper.PostalCode, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Grid.Column="1" Grid.Row="6" Content="City"/>
             <TextBox Grid.Column="2" Grid.Row="6" Margin="0 2 0 2" Text="{Binding SelectedCustomer.City, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Grid.Column="1" Grid.Row="7" Content="Phone number"/>
