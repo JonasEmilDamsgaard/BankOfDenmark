@@ -50,6 +50,7 @@ namespace BankApp.ViewModels
         public DelegateCommand ShowAccountCommand { get; }
         public DelegateCommand ShowCustomerInfoCommand { get; }
         public ObservableCollection<Customer> Customers { get; set; }
+
         public Customer SelectedCustomer
         {
             get => selectedCustomer;
@@ -111,20 +112,18 @@ namespace BankApp.ViewModels
 
         private void OnShowAccountView()
         {
-            if (SelectedCustomer != null)
-            {
-                NavigationParameters parameter = new NavigationParameters{{ "selectedCustomer", SelectedCustomer.Id }};
-                regionManager.RequestNavigate("MainRegion", nameof(AccountViewModel), parameter);
-            }
+            if (SelectedCustomer == null) return;
+
+            NavigationParameters parameter = new NavigationParameters{{ "selectedCustomer", SelectedCustomer.Id }};
+            regionManager.RequestNavigate("MainRegion", nameof(AccountViewModel), parameter);
         }
 
         private void OnShowCustomerInfoView()
         {
-            if (SelectedCustomer != null)
-            {
-                NavigationParameters parameter = new NavigationParameters{{ "selectedCustomer", SelectedCustomer.Id }};
-                regionManager.RequestNavigate("MainRegion", nameof(CustomerInfoViewModel), parameter);
-            }
+            if (SelectedCustomer == null) return;
+
+            NavigationParameters parameter = new NavigationParameters{{ "selectedCustomer", SelectedCustomer.Id }};
+            regionManager.RequestNavigate("MainRegion", nameof(CustomerInfoViewModel), parameter);
         }
 
         public void OnNavigatedTo(NavigationContext navigationContext)

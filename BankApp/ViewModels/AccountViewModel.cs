@@ -16,7 +16,7 @@ namespace BankApp.ViewModels
         private readonly AccountService accountService;
         private IRegionNavigationJournal journal;
         private Customer selectedCustomer;
-        private AccountWrapper accountWrapper;
+        private decimal amount;
 
         public AccountViewModel(IRegionManager regionManager, IUnitOfWork unitOfWork, AccountService accountService)
         {
@@ -49,27 +49,29 @@ namespace BankApp.ViewModels
             }
         }
 
-        public AccountWrapper AccountWrapper
+        public decimal Amount
         {
-            get => accountWrapper;
+            get => amount;
             set
             {
-                if (accountWrapper == value) return;
-                accountWrapper = value;
+                if (amount == value) return;
+                amount = value;
                 RaisePropertyChanged();
             }
         }
 
-        private void OnWithdraw()
-        {
-            accountService.Withdraw(SelectedCustomer.Account);
-            RaisePropertyChanged(nameof(AccountWrapper));
-        }
-
         private void OnDeposit()
         {
-            accountService.Deposit(SelectedCustomer.Account);
-            RaisePropertyChanged(nameof(AccountWrapper));
+            SelectedCustomer.Account.Balance = accountService.Deposit(SelectedCustomer, Amount);
+            RaisePropertyChanged(nameof(SelectedCustomer));
+            Amount = 0;
+        }
+
+        private void OnWithdraw()
+        {
+            SelectedCustomer.Account.Balance = accountService.Withdraw(SelectedCustomer, Amount);
+            RaisePropertyChanged(nameof(SelectedCustomer));
+            Amount = 0;
         }
 
         private void OnGoBack()
@@ -82,9 +84,7 @@ namespace BankApp.ViewModels
         {
             NavigationParameters parameter = navigationContext.Parameters;
             var id = parameter.GetValue<int>("selectedCustomer");
-
             SelectedCustomer = unitOfWork.Customers.GetById(id);
-            AccountWrapper = new AccountWrapper(SelectedCustomer.Account);
 
             journal = navigationContext.NavigationService.Journal;
         }

@@ -16,16 +16,20 @@ namespace BankApp.Services
             this.unitOfWork = unitOfWork;
         }
 
-        public void Deposit(Account account)
+        public decimal Deposit(Customer selectedCustomer, decimal amount)
         {
-            account.Balance += account.Amount;
+            var accountBalance = unitOfWork.Customers.GetById(selectedCustomer.Id).Account.Balance += amount;
             unitOfWork.Complete();
+
+            return accountBalance;
         }
 
-        public void Withdraw(Account account)
+        public decimal Withdraw(Customer selectedCustomer, decimal amount)
         {
-            account.Balance -= account.Amount;
+            var accountBalance = unitOfWork.Customers.GetById(selectedCustomer.Id).Account.Balance -= amount;
             unitOfWork.Complete();
+
+            return accountBalance;
         }
     }
 }

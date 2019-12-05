@@ -41,7 +41,6 @@ namespace BankApp.Services
             c.SocialSecurityNumber = selectedCustomer.SocialSecurityNumber;
             c.StreetName = selectedCustomer.StreetName;
             c.StreetNumber = selectedCustomer.StreetNumber;
-            
             unitOfWork.Complete();
 
             return c;

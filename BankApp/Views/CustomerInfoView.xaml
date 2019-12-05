@@ -1,67 +1,146 @@
-﻿<UserControl x:Class="BankApp.Views.CustomerInfoView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:prism="http://prismlibrary.com/"
-        prism:ViewModelLocator.AutoWireViewModel="True">
+﻿<UserControl
+    x:Class="BankApp.Views.CustomerInfoView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:prism="http://prismlibrary.com/"
+    prism:ViewModelLocator.AutoWireViewModel="True">
     <StackPanel>
 
-        <Label Content="Bank of Denmark" FontSize="32" HorizontalAlignment="Center"/>
+        <Label
+            HorizontalAlignment="Center"
+            Content="Bank of Denmark"
+            FontSize="32" />
 
-        <TextBox Padding="10" BorderThickness="0" IsEnabled="False"/>
+        <TextBox
+            Padding="10"
+            BorderThickness="0"
+            IsEnabled="False" />
 
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="140"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="140" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Label Grid.Column="1" Grid.Row="0" Content="ID"/>
-            <TextBox Grid.Column="2" Grid.Row="0" Margin="0 2 0 2" Text="{Binding CustomerWrapper.Id, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsEnabled="False"/>
-            <Label Grid.Column="1" Grid.Row="1" Content="Social security number"/>
-            <TextBox Grid.Column="2" Grid.Row="1" Margin="0 2 0 2" Text="{Binding CustomerWrapper.SocialSecurityNumber, UpdateSourceTrigger=PropertyChanged}"/>
-            <Label Grid.Column="1" Grid.Row="2" Content="Full name"/>
-            <TextBox Grid.Column="2" Grid.Row="2" Margin="0 2 0 2" Text="{Binding CustomerWrapper.FullName, UpdateSourceTrigger=PropertyChanged}"/>
-            <Label Grid.Column="1" Grid.Row="3" Content="Street name"/>
-            <TextBox Grid.Column="2" Grid.Row="3" Margin="0 2 0 2" Text="{Binding CustomerWrapper.StreetName, UpdateSourceTrigger=PropertyChanged}"/>
-            <Label Grid.Column="1" Grid.Row="4" Content="Street number"/>
-            <TextBox Grid.Column="2" Grid.Row="4" Margin="0 2 0 2" Text="{Binding CustomerWrapper.StreetNumber, UpdateSourceTrigger=PropertyChanged}"/>
-            <Label Grid.Column="1" Grid.Row="5" Content="Postal code"/>
-            <TextBox Grid.Column="2" Grid.Row="5" Margin="0 2 0 2" Text="{Binding CustomerWrapper.PostalCode, UpdateSourceTrigger=PropertyChanged}"/>
-            <Label Grid.Column="1" Grid.Row="6" Content="City"/>
-            <TextBox Grid.Column="2" Grid.Row="6" Margin="0 2 0 2" Text="{Binding SelectedCustomer.City, UpdateSourceTrigger=PropertyChanged}"/>
-            <Label Grid.Column="1" Grid.Row="7" Content="Phone number"/>
-            <TextBox Grid.Column="2" Grid.Row="7" Margin="0 2 0 2" Text="{Binding SelectedCustomer.PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label
+                Grid.Row="0"
+                Grid.Column="1"
+                Content="ID" />
+            <TextBox
+                Grid.Row="0"
+                Grid.Column="2"
+                Margin="0,2,0,2"
+                IsEnabled="False"
+                Text="{Binding CloneCustomer.Id, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+            <Label
+                Grid.Row="1"
+                Grid.Column="1"
+                Content="Social security number" />
+            <TextBox
+                Grid.Row="1"
+                Grid.Column="2"
+                Margin="0,2,0,2"
+                Text="{Binding CloneCustomer.SocialSecurityNumber, UpdateSourceTrigger=PropertyChanged}" />
+            <Label
+                Grid.Row="2"
+                Grid.Column="1"
+                Content="Full name" />
+            <TextBox
+                Grid.Row="2"
+                Grid.Column="2"
+                Margin="0,2,0,2"
+                Text="{Binding CloneCustomer.FullName, UpdateSourceTrigger=PropertyChanged}" />
+            <Label
+                Grid.Row="3"
+                Grid.Column="1"
+                Content="Street name" />
+            <TextBox
+                Grid.Row="3"
+                Grid.Column="2"
+                Margin="0,2,0,2"
+                Text="{Binding CloneCustomer.StreetName, UpdateSourceTrigger=PropertyChanged}" />
+            <Label
+                Grid.Row="4"
+                Grid.Column="1"
+                Content="Street number" />
+            <TextBox
+                Grid.Row="4"
+                Grid.Column="2"
+                Margin="0,2,0,2"
+                Text="{Binding CloneCustomer.StreetNumber, UpdateSourceTrigger=PropertyChanged}" />
+            <Label
+                Grid.Row="5"
+                Grid.Column="1"
+                Content="Postal code" />
+            <TextBox
+                Grid.Row="5"
+                Grid.Column="2"
+                Margin="0,2,0,2"
+                Text="{Binding CloneCustomer.PostalCode, UpdateSourceTrigger=PropertyChanged}" />
+            <Label
+                Grid.Row="6"
+                Grid.Column="1"
+                Content="City" />
+            <TextBox
+                Grid.Row="6"
+                Grid.Column="2"
+                Margin="0,2,0,2"
+                Text="{Binding CloneCustomer.City, UpdateSourceTrigger=PropertyChanged}" />
+            <Label
+                Grid.Row="7"
+                Grid.Column="1"
+                Content="Phone number" />
+            <TextBox
+                Grid.Row="7"
+                Grid.Column="2"
+                Margin="0,2,0,2"
+                Text="{Binding CloneCustomer.PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
 
-        <TextBox Padding="10" BorderThickness="0" IsEnabled="False"/>
+        <TextBox
+            Padding="10"
+            BorderThickness="0"
+            IsEnabled="False" />
 
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="60"/>
-                <ColumnDefinition Width="60"/>
-                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="60" />
+                <ColumnDefinition Width="60" />
+                <ColumnDefinition Width="10" />
 
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Button Grid.Column="2" Margin="2 2 2 2" ToolTip="Discard changes and return" Command="{Binding CancelCommand}">Cancel</Button>
-            <Button Grid.Column="1" Margin="2 2 2 2" ToolTip="Save changes and return" Command="{Binding OkCommand}">Ok</Button>
-            
+            <Button
+                Grid.Column="2"
+                Margin="2,2,2,2"
+                Command="{Binding CancelCommand}"
+                ToolTip="Discard changes and return">
+                Cancel
+            </Button>
+            <Button
+                Grid.Column="1"
+                Margin="2,2,2,2"
+                Command="{Binding OkCommand}"
+                ToolTip="Save changes and return">
+                Ok
+            </Button>
+
         </Grid>
 
     </StackPanel>

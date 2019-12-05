@@ -1,4 +1,5 @@
-﻿using BankApp.Models;
+﻿using System.Security.AccessControl;
+using BankApp.Models;
 using BankApp.Services;
 using Data.DataAccess;
 using Data.Models;
@@ -15,8 +16,7 @@ namespace BankApp.ViewModels
       private readonly CustomerService customerService;
       private IRegionNavigationJournal journal;
       private Customer selectedCustomer;
-      private Customer originalCustomer;
-      private CustomerWrapper customerWrapper;
+      private Customer cloneCustomer;
 
       public CustomerInfoViewModel(IRegionManager regionManager, IUnitOfWork unitOfWork, CustomerService customerService)
       {
@@ -27,7 +27,7 @@ namespace BankApp.ViewModels
           DelegateCommand okCommand = new DelegateCommand(OnOkCommand);
           OkCommand = okCommand;
 
-          DelegateCommand cancelCommand = new DelegateCommand(OnGoBack);
+          DelegateCommand cancelCommand = new DelegateCommand(OnCancelCommand);
           CancelCommand = cancelCommand;
       }
       public DelegateCommand OkCommand { get; }
@@ -44,22 +44,25 @@ namespace BankApp.ViewModels
           }
       }
 
-      public CustomerWrapper CustomerWrapper
+      public Customer CloneCustomer
       {
-          get => customerWrapper;
+          get => cloneCustomer;
           set
           {
-              if (customerWrapper == value) return;
-              customerWrapper = value;
+              if (cloneCustomer == value) return;
+              cloneCustomer = value;
               RaisePropertyChanged();
           }
       }
 
-      private void OnOkCommand()
+        private void OnOkCommand()
       {
-          originalCustomer = customerService.EditCustomer(SelectedCustomer);
-          RaisePropertyChanged(nameof(CustomerWrapper));
+          SelectedCustomer = customerService.EditCustomer(CloneCustomer);
+          OnGoBack();
+      }
 
+      private void OnCancelCommand()
+      {
           OnGoBack();
       }
 
@@ -76,10 +79,8 @@ namespace BankApp.ViewModels
           NavigationParameters parameter = navigationContext.Parameters;
           var id = parameter.GetValue<int>("selectedCustomer");
 
-          originalCustomer = unitOfWork.Customers.GetById(id);
-          SelectedCustomer = originalCustomer.Clone() as Customer;
-
-          CustomerWrapper = new CustomerWrapper(originalCustomer);
+          SelectedCustomer = unitOfWork.Customers.GetById(id);
+          CloneCustomer = SelectedCustomer.Clone() as Customer;
 
           journal = navigationContext.NavigationService.Journal;
       }

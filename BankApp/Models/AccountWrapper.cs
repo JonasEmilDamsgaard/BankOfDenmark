@@ -37,15 +37,15 @@ namespace BankApp.Models
             }
         }
 
-        public decimal Amount
-        {
-            get => account.Amount;
-            set
-            {
-                if (account.Amount == value) return;
-                account.Amount = value;
-                RaisePropertyChanged();
-            }
-        }
+        //public decimal Amount
+        //{
+        //    get => account.Amount;
+        //    set
+        //    {
+        //        if (account.Amount == value) return;
+        //        account.Amount = value;
+        //        RaisePropertyChanged();
+        //    }
+        //}
     }
 }
