@@ -1,7 +1,7 @@
 ﻿namespace Data
 {
-  public interface IEntity
-  {
-    int Id { get; }
-  }
+    public interface IEntity
+    {
+        int Id { get; }
+    }
 }

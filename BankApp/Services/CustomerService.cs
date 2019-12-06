@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Data.DataAccess;
 using Data.EF.DataAccess;
 using Data.Models;
@@ -17,7 +14,12 @@ namespace BankApp.Services
             this.unitOfWork = unitOfWork;
         }
 
-        //public IEnumerable<Customer> Customers => unitOfWork.Customers.GetAll();
+        public IEnumerable<Customer> Customers => unitOfWork.Customers.GetAll();
+
+        public Customer SelectedCustomer(int id)
+        {
+            return unitOfWork.Customers.GetById(id);
+        }
 
         public Customer AddCustomer()
         {
@@ -47,6 +49,11 @@ namespace BankApp.Services
             unitOfWork.Complete();
 
             return c;
+        }
+
+        public IEnumerable<Customer> FilterCustomers(string filter)
+        {
+            return unitOfWork.Customers.Find(c => c.FullName.ToLower().Contains(filter.ToLower()));
         }
     }
 }

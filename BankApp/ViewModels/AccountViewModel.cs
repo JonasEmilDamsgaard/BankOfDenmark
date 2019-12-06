@@ -1,9 +1,5 @@
-﻿using System;
-using BankApp.Services;
-using Data.DataAccess;
-using Data.EF.DataAccess;
+﻿using BankApp.Services;
 using Data.Models;
-using Microsoft.EntityFrameworkCore.Query.Internal;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -12,17 +8,15 @@ namespace BankApp.ViewModels
 {
     public class AccountViewModel : BindableBase, INavigationAware
     {
-        private readonly IRegionManager regionManager;
-        private readonly UnitOfWork unitOfWork;
+        private readonly CustomerService customerService;
         private readonly AccountService accountService;
         private IRegionNavigationJournal journal;
         private Customer selectedCustomer;
         private decimal amount;
 
-        public AccountViewModel(IRegionManager regionManager, UnitOfWork unitOfWork, AccountService accountService)
+        public AccountViewModel(CustomerService customerService, AccountService accountService)
         {
-            this.regionManager = regionManager;
-            this.unitOfWork = unitOfWork;
+            this.customerService = customerService;
             this.accountService = accountService;
 
             DelegateCommand withDrawCommand = new DelegateCommand(OnWithdraw);
@@ -43,7 +37,7 @@ namespace BankApp.ViewModels
         {
             get => selectedCustomer;
             set
-            { 
+            {
                 if (selectedCustomer == value) return;
                 selectedCustomer = value;
                 RaisePropertyChanged();
@@ -85,7 +79,7 @@ namespace BankApp.ViewModels
         {
             NavigationParameters parameter = navigationContext.Parameters;
             var id = parameter.GetValue<int>("selectedCustomer");
-            SelectedCustomer = unitOfWork.Customers.GetById(id);
+            SelectedCustomer = customerService.SelectedCustomer(id);
 
             journal = navigationContext.NavigationService.Journal;
         }

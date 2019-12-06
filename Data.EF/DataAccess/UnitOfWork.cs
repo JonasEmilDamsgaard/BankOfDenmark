@@ -4,26 +4,26 @@ using Data.EF.DataAccess.Repositories;
 
 namespace Data.EF.DataAccess
 {
-  public class UnitOfWork : IUnitOfWork
-  {
-    private readonly DatabaseContext context;
-
-    public UnitOfWork(DatabaseContext context)
+    public class UnitOfWork : IUnitOfWork
     {
-      this.context = context;
-      Customers = new CustomerRepository(context);
-    }
+        private readonly DatabaseContext context;
 
-    public ICustomerRepository Customers { get; }
+        public UnitOfWork(DatabaseContext context)
+        {
+            this.context = context;
+            Customers = new CustomerRepository(context);
+        }
 
-    public int Complete()
-    {
-      return context.SaveChanges();
-    }
+        public ICustomerRepository Customers { get; }
 
-    public void Dispose()
-    {
-      context.Dispose();
+        public int Complete()
+        {
+            return context.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            context.Dispose();
+        }
     }
-  }
 }

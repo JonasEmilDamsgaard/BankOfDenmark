@@ -3,20 +3,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data.EF
 {
-  public class DatabaseContext : DbContext
-  {
-    public DatabaseContext()
+    public class DatabaseContext : DbContext
     {
-      base.Database.EnsureDeleted();
-      base.Database.EnsureCreated();
-    }
+        public DatabaseContext()
+        {
+            base.Database.EnsureDeleted();
+            base.Database.EnsureCreated();
+        }
 
-    public DbSet<Customer> Customers { get; set; }
-    //public DbSet<Account> Accounts { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-      optionsBuilder.UseSqlite("Data Source=db.sqlite;");
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite("Data Source=db.sqlite;");
+        }
     }
-  }
 }

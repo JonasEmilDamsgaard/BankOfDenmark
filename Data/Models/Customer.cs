@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using Data.Annotations;
 
 namespace Data.Models
 {
@@ -30,7 +25,7 @@ namespace Data.Models
         public string City { get; set; }
         public int PhoneNumber { get; set; }
         public Account Account { get; set; }
-        
+
         public object Clone()
         {
             return MemberwiseClone(); // Shallow clone
@@ -38,7 +33,7 @@ namespace Data.Models
 
         public int CompareTo(object obj)
         {
-            Customer customer = (Customer) obj;
+            Customer customer = (Customer)obj;
             return string.CompareOrdinal(FullName, customer.FullName);
         }
     }

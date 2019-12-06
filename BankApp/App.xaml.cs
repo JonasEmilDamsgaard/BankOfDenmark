@@ -13,37 +13,34 @@ using Prism.Unity;
 
 namespace BankApp
 {
-  /// <summary>
-  /// Interaction logic for App.xaml
-  /// </summary>
-  public partial class App : PrismApplication
-  {
-    protected override Window CreateShell()
+    /// <summary>
+    /// Interaction logic for App.xaml
+    /// </summary>
+    public partial class App : PrismApplication
     {
-      return Container.Resolve<MainWindow>();
+        protected override Window CreateShell()
+        {
+            return Container.Resolve<MainWindow>();
+        }
+
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            containerRegistry.RegisterSingleton(typeof(DatabaseContext));
+            containerRegistry.RegisterSingleton(typeof(ICustomerRepository), typeof(CustomerRepository));
+            containerRegistry.RegisterSingleton(typeof(IUnitOfWork), typeof(UnitOfWork));
+            containerRegistry.RegisterSingleton(typeof(CustomerService));
+            containerRegistry.RegisterSingleton(typeof(AccountService));
+
+            containerRegistry.RegisterForNavigation<CustomerView>(nameof(CustomerViewModel));
+            containerRegistry.RegisterForNavigation<CustomerInfoView>(nameof(CustomerInfoViewModel));
+            containerRegistry.RegisterForNavigation<AccountView>(nameof(AccountViewModel));
+        }
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            Container.Resolve<IRegionManager>().RequestNavigate("MainRegion", nameof(CustomerViewModel));
+        }
     }
-
-    protected override void RegisterTypes(IContainerRegistry containerRegistry)
-    {
-      //var bankManager = BankManagerFactory.Create();
-      //containerRegistry.RegisterSingleton<BankManager>(); //Local singleton
-
-      containerRegistry.RegisterSingleton(typeof(DatabaseContext));
-      containerRegistry.RegisterSingleton(typeof(ICustomerRepository), typeof(CustomerRepository));
-      containerRegistry.RegisterSingleton(typeof(IUnitOfWork), typeof(UnitOfWork));
-      containerRegistry.RegisterSingleton(typeof(CustomerService));
-      containerRegistry.RegisterSingleton(typeof(AccountService));
-
-      containerRegistry.RegisterForNavigation<CustomerView>(nameof(CustomerViewModel));
-      containerRegistry.RegisterForNavigation<CustomerInfoView>(nameof(CustomerInfoViewModel));
-      containerRegistry.RegisterForNavigation<AccountView>(nameof(AccountViewModel));
-    }
-
-    protected override void OnInitialized()
-    {
-      base.OnInitialized();
-
-      Container.Resolve<IRegionManager>().RequestNavigate("MainRegion", nameof(CustomerViewModel));
-    }
-  }
 }
