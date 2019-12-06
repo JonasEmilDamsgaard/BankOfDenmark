@@ -1,8 +1,9 @@
 ﻿using System;
-using BankApp.Models;
 using BankApp.Services;
 using Data.DataAccess;
+using Data.EF.DataAccess;
 using Data.Models;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -12,13 +13,13 @@ namespace BankApp.ViewModels
     public class AccountViewModel : BindableBase, INavigationAware
     {
         private readonly IRegionManager regionManager;
-        private readonly IUnitOfWork unitOfWork;
+        private readonly UnitOfWork unitOfWork;
         private readonly AccountService accountService;
         private IRegionNavigationJournal journal;
         private Customer selectedCustomer;
         private decimal amount;
 
-        public AccountViewModel(IRegionManager regionManager, IUnitOfWork unitOfWork, AccountService accountService)
+        public AccountViewModel(IRegionManager regionManager, UnitOfWork unitOfWork, AccountService accountService)
         {
             this.regionManager = regionManager;
             this.unitOfWork = unitOfWork;
@@ -62,14 +63,14 @@ namespace BankApp.ViewModels
 
         private void OnDeposit()
         {
-            SelectedCustomer.Account.Balance = accountService.Deposit(SelectedCustomer, Amount);
+            SelectedCustomer = accountService.Deposit(SelectedCustomer, Amount);
             RaisePropertyChanged(nameof(SelectedCustomer));
             Amount = 0;
         }
 
         private void OnWithdraw()
         {
-            SelectedCustomer.Account.Balance = accountService.Withdraw(SelectedCustomer, Amount);
+            SelectedCustomer = accountService.Withdraw(SelectedCustomer, Amount);
             RaisePropertyChanged(nameof(SelectedCustomer));
             Amount = 0;
         }

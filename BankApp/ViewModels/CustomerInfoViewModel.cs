@@ -1,7 +1,6 @@
-﻿using System.Security.AccessControl;
-using BankApp.Models;
-using BankApp.Services;
+﻿using BankApp.Services;
 using Data.DataAccess;
+using Data.EF.DataAccess;
 using Data.Models;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -12,13 +11,13 @@ namespace BankApp.ViewModels
     public class CustomerInfoViewModel : BindableBase, INavigationAware
     {
       private readonly IRegionManager regionManager;
-      private readonly IUnitOfWork unitOfWork;
+      private readonly UnitOfWork unitOfWork;
       private readonly CustomerService customerService;
       private IRegionNavigationJournal journal;
       private Customer selectedCustomer;
       private Customer cloneCustomer;
 
-      public CustomerInfoViewModel(IRegionManager regionManager, IUnitOfWork unitOfWork, CustomerService customerService)
+      public CustomerInfoViewModel(IRegionManager regionManager, UnitOfWork unitOfWork, CustomerService customerService)
       {
           this.regionManager = regionManager;
           this.unitOfWork = unitOfWork;

@@ -4,7 +4,9 @@ using Data.Models;
 using System.Linq;
 using System.Windows.Data;
 using BankApp.Services;
+using Data.DataAccess;
 using Data.DataAccess.Repositories;
+using Data.EF.DataAccess;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -14,16 +16,16 @@ namespace BankApp.ViewModels
     public class CustomerViewModel : BindableBase, INavigationAware
     {
         private readonly IRegionManager regionManager;
-        private readonly ICustomerRepository customerRepository;
+        private readonly UnitOfWork unitOfWork;
         private readonly CustomerService customerService;
         private Customer selectedCustomer;
         private bool toggle;
         private string filter;
 
-        public CustomerViewModel(IRegionManager regionManager, ICustomerRepository customerRepository, CustomerService customerService)
+        public CustomerViewModel(IRegionManager regionManager, UnitOfWork unitOfWork, CustomerService customerService)
         {
             this.regionManager = regionManager;
-            this.customerRepository = customerRepository;
+            this.unitOfWork = unitOfWork;
             this.customerService = customerService;
 
             Customers = new ObservableCollection<Customer>();
@@ -107,7 +109,7 @@ namespace BankApp.ViewModels
         private void FilterCustomers()
         {
             Customers.Clear();
-            Customers.AddRange(customerRepository.Find(c => c.FullName.ToLower().Contains(Filter.ToLower())));
+            Customers.AddRange(unitOfWork.Customers.Find(c => c.FullName.ToLower().Contains(Filter.ToLower())));
         }
 
         private void OnShowAccountView()
@@ -128,8 +130,14 @@ namespace BankApp.ViewModels
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
+            //var id = SelectedCustomer?.Id;
+
             Customers.Clear();
-            Customers.AddRange(customerRepository.GetAll());
+            Customers.AddRange(unitOfWork.Customers.GetAll());
+
+
+            //if (id != null)
+            //    SelectedCustomer = Customers.FirstOrDefault(i => i.Id == id);
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)

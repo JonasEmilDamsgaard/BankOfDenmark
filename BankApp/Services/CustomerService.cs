@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Data.DataAccess;
 using Data.EF.DataAccess;
@@ -15,6 +16,8 @@ namespace BankApp.Services
         {
             this.unitOfWork = unitOfWork;
         }
+
+        //public IEnumerable<Customer> Customers => unitOfWork.Customers.GetAll();
 
         public Customer AddCustomer()
         {
