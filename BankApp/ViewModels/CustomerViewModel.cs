@@ -21,8 +21,6 @@ namespace BankApp.ViewModels
             this.regionManager = regionManager;
             this.customerService = customerService;
 
-            Customers = new ObservableCollection<Customer>();
-
             DelegateCommand addCustomerCommand = new DelegateCommand(AddCustomer);
             AddCustomerCommand = addCustomerCommand;
 
@@ -32,16 +30,22 @@ namespace BankApp.ViewModels
             DelegateCommand sortCustomersCommand = new DelegateCommand(SortCustomers);
             SortCustomersCommand = sortCustomersCommand;
 
+            DelegateCommand findMostValuedCustomerCommand = new DelegateCommand(FindMostValuedCustomer);
+            FindMostValuedCustomerCommand = findMostValuedCustomerCommand;
+
             DelegateCommand showAccountCommand = new DelegateCommand(OnShowAccountView);
             ShowAccountCommand = showAccountCommand;
 
             DelegateCommand showCustomerInfoCommand = new DelegateCommand(OnShowCustomerInfoView);
             ShowCustomerInfoCommand = showCustomerInfoCommand;
+
+            Customers = new ObservableCollection<Customer>();
         }
 
         public DelegateCommand AddCustomerCommand { get; }
         public DelegateCommand DeleteCustomerCommand { get; }
         public DelegateCommand SortCustomersCommand { get; }
+        public DelegateCommand FindMostValuedCustomerCommand { get; }
         public DelegateCommand ShowAccountCommand { get; }
         public DelegateCommand ShowCustomerInfoCommand { get; }
         public ObservableCollection<Customer> Customers { get; set; }
@@ -66,8 +70,9 @@ namespace BankApp.ViewModels
                 if (filter == value) return;
 
                 filter = value;
-                FilterCustomers();
                 RaisePropertyChanged();
+
+                FilterCustomers();
             }
         }
 
@@ -105,6 +110,11 @@ namespace BankApp.ViewModels
             toggle = !toggle;
         }
 
+        private void FindMostValuedCustomer()
+        {
+            SelectedCustomer = customerService.GetMostValuedCustomers(1).First();
+        }
+
         private void OnShowAccountView()
         {
             if (SelectedCustomer == null) return;
@@ -124,7 +134,7 @@ namespace BankApp.ViewModels
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
             Customers.Clear();
-            Customers.AddRange(customerService.Customers);
+            Customers.AddRange(customerService.GetAllCustomers);
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)

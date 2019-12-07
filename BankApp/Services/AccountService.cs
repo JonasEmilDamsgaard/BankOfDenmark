@@ -13,7 +13,7 @@ namespace BankApp.Services
             this.unitOfWork = unitOfWork;
         }
 
-        public Customer Deposit(Customer selectedCustomer, decimal amount)
+        public Customer Deposit(Customer selectedCustomer, double amount)
         {
             selectedCustomer.Account.Balance = unitOfWork.Customers.GetById(selectedCustomer.Id).Account.Balance += amount;
             unitOfWork.Complete();
@@ -21,7 +21,7 @@ namespace BankApp.Services
             return selectedCustomer;
         }
 
-        public Customer Withdraw(Customer selectedCustomer, decimal amount)
+        public Customer Withdraw(Customer selectedCustomer, double amount)
         {
             selectedCustomer.Account.Balance = unitOfWork.Customers.GetById(selectedCustomer.Id).Account.Balance -= amount;
             unitOfWork.Complete();

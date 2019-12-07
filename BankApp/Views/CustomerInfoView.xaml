@@ -43,7 +43,7 @@
                 Grid.Column="2"
                 Margin="0,2,0,2"
                 IsEnabled="False"
-                Text="{Binding CloneCustomer.Id, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+                Text="{Binding SelectedCustomer.Id, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
             <Label
                 Grid.Row="1"
                 Grid.Column="1"
@@ -52,7 +52,7 @@
                 Grid.Row="1"
                 Grid.Column="2"
                 Margin="0,2,0,2"
-                Text="{Binding CloneCustomer.SocialSecurityNumber, UpdateSourceTrigger=PropertyChanged}" />
+                Text="{Binding SelectedCustomer.SocialSecurityNumber, UpdateSourceTrigger=PropertyChanged}" />
             <Label
                 Grid.Row="2"
                 Grid.Column="1"
@@ -61,7 +61,7 @@
                 Grid.Row="2"
                 Grid.Column="2"
                 Margin="0,2,0,2"
-                Text="{Binding CloneCustomer.FullName, UpdateSourceTrigger=PropertyChanged}" />
+                Text="{Binding SelectedCustomer.FullName, UpdateSourceTrigger=PropertyChanged}" />
             <Label
                 Grid.Row="3"
                 Grid.Column="1"
@@ -70,7 +70,7 @@
                 Grid.Row="3"
                 Grid.Column="2"
                 Margin="0,2,0,2"
-                Text="{Binding CloneCustomer.StreetName, UpdateSourceTrigger=PropertyChanged}" />
+                Text="{Binding SelectedCustomer.StreetName, UpdateSourceTrigger=PropertyChanged}" />
             <Label
                 Grid.Row="4"
                 Grid.Column="1"
@@ -79,7 +79,7 @@
                 Grid.Row="4"
                 Grid.Column="2"
                 Margin="0,2,0,2"
-                Text="{Binding CloneCustomer.StreetNumber, UpdateSourceTrigger=PropertyChanged}" />
+                Text="{Binding SelectedCustomer.StreetNumber, UpdateSourceTrigger=PropertyChanged}" />
             <Label
                 Grid.Row="5"
                 Grid.Column="1"
@@ -88,7 +88,7 @@
                 Grid.Row="5"
                 Grid.Column="2"
                 Margin="0,2,0,2"
-                Text="{Binding CloneCustomer.PostalCode, UpdateSourceTrigger=PropertyChanged}" />
+                Text="{Binding SelectedCustomer.PostalCode, UpdateSourceTrigger=PropertyChanged}" />
             <Label
                 Grid.Row="6"
                 Grid.Column="1"
@@ -97,7 +97,7 @@
                 Grid.Row="6"
                 Grid.Column="2"
                 Margin="0,2,0,2"
-                Text="{Binding CloneCustomer.City, UpdateSourceTrigger=PropertyChanged}" />
+                Text="{Binding SelectedCustomer.City, UpdateSourceTrigger=PropertyChanged}" />
             <Label
                 Grid.Row="7"
                 Grid.Column="1"
@@ -106,7 +106,7 @@
                 Grid.Row="7"
                 Grid.Column="2"
                 Margin="0,2,0,2"
-                Text="{Binding CloneCustomer.PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
+                Text="{Binding SelectedCustomer.PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
 
         <TextBox

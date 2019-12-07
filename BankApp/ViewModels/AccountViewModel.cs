@@ -12,7 +12,7 @@ namespace BankApp.ViewModels
         private readonly AccountService accountService;
         private IRegionNavigationJournal journal;
         private Customer selectedCustomer;
-        private decimal amount;
+        private double amount;
 
         public AccountViewModel(CustomerService customerService, AccountService accountService)
         {
@@ -44,7 +44,7 @@ namespace BankApp.ViewModels
             }
         }
 
-        public decimal Amount
+        public double Amount
         {
             get => amount;
             set
@@ -79,7 +79,7 @@ namespace BankApp.ViewModels
         {
             NavigationParameters parameter = navigationContext.Parameters;
             var id = parameter.GetValue<int>("selectedCustomer");
-            SelectedCustomer = customerService.SelectedCustomer(id);
+            SelectedCustomer = customerService.GetSelectedCustomer(id);
 
             journal = navigationContext.NavigationService.Journal;
         }

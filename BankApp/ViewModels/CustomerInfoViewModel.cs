@@ -10,7 +10,6 @@ namespace BankApp.ViewModels
     {
         private readonly CustomerService customerService;
         private IRegionNavigationJournal journal;
-        private Customer selectedCustomer;
         private Customer cloneCustomer;
 
         public CustomerInfoViewModel(CustomerService customerService)
@@ -28,17 +27,6 @@ namespace BankApp.ViewModels
 
         public Customer SelectedCustomer
         {
-            get => selectedCustomer;
-            set
-            {
-                if (selectedCustomer == value) return;
-                selectedCustomer = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public Customer CloneCustomer
-        {
             get => cloneCustomer;
             set
             {
@@ -50,7 +38,7 @@ namespace BankApp.ViewModels
 
         private void OnOkCommand()
         {
-            SelectedCustomer = customerService.EditCustomer(CloneCustomer);
+            customerService.EditCustomer(SelectedCustomer);
             OnGoBack();
         }
 
@@ -72,8 +60,8 @@ namespace BankApp.ViewModels
             NavigationParameters parameter = navigationContext.Parameters;
             var id = parameter.GetValue<int>("selectedCustomer");
 
-            SelectedCustomer = customerService.SelectedCustomer(id);
-            CloneCustomer = SelectedCustomer.Clone() as Customer;
+            var selectedCustomer = customerService.GetSelectedCustomer(id);
+            SelectedCustomer = selectedCustomer.Clone() as Customer;
 
             journal = navigationContext.NavigationService.Journal;
         }

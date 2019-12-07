@@ -14,11 +14,16 @@ namespace BankApp.Services
             this.unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<Customer> Customers => unitOfWork.Customers.GetAll();
+        public IEnumerable<Customer> GetAllCustomers => unitOfWork.Customers.GetAll();
 
-        public Customer SelectedCustomer(int id)
+        public Customer GetSelectedCustomer(int id)
         {
             return unitOfWork.Customers.GetById(id);
+        }
+
+        public IEnumerable<Customer> GetMostValuedCustomers(int numberOfCustomers)
+        {
+            return unitOfWork.Customers.GetMostValuedCustomers(numberOfCustomers);
         }
 
         public Customer AddCustomer()
