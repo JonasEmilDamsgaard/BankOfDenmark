@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using Data.DataAccess.Repositories;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 
 namespace Data.EF.DataAccess.Repositories
 {
@@ -44,11 +45,11 @@ namespace Data.EF.DataAccess.Repositories
             context.Customers.Remove(entity ?? throw new ArgumentNullException(nameof(entity)));
         }
 
-        public IEnumerable<Customer> GetMostValuedCustomers(int numberOfCustomers)
+        public IEnumerable<Customer> GetTopCustomers(int numberOfCustomers)
         {
             if (numberOfCustomers > context.Customers.ToList().Count)
             {
-                throw new IndexOutOfRangeException();
+                return new List<Customer>();
             }
 
             return context.Customers.OrderByDescending(x => x.Account.Balance).Take(numberOfCustomers).ToList();

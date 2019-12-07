@@ -5,6 +5,6 @@ namespace Data.DataAccess.Repositories
 {
     public interface ICustomerRepository : IRepository<Customer>
     {
-        IEnumerable<Customer> GetMostValuedCustomers(int numberOfCustomers);
+        IEnumerable<Customer> GetTopCustomers(int numberOfCustomers);
     }
 }

@@ -21,9 +21,9 @@ namespace BankApp.Services
             return unitOfWork.Customers.GetById(id);
         }
 
-        public IEnumerable<Customer> GetMostValuedCustomers(int numberOfCustomers)
+        public IEnumerable<Customer> GetTopCustomers(int numberOfCustomers)
         {
-            return unitOfWork.Customers.GetMostValuedCustomers(numberOfCustomers);
+            return unitOfWork.Customers.GetTopCustomers(numberOfCustomers);
         }
 
         public Customer AddCustomer()

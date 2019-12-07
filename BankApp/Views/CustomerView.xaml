@@ -148,8 +148,8 @@
             <Button
                 Grid.Column="2"
                 Margin="2,2,2,2"
-                Command="{Binding FindMostValuedCustomerCommand}">
-                Find Best Customer
+                Command="{Binding FindTopCustomerCommand}">
+                Find top customer
             </Button>
         </Grid>
     </StackPanel>

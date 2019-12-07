@@ -30,8 +30,8 @@ namespace BankApp.ViewModels
             DelegateCommand sortCustomersCommand = new DelegateCommand(SortCustomers);
             SortCustomersCommand = sortCustomersCommand;
 
-            DelegateCommand findMostValuedCustomerCommand = new DelegateCommand(FindMostValuedCustomer);
-            FindMostValuedCustomerCommand = findMostValuedCustomerCommand;
+            DelegateCommand findtopCustomerCommand = new DelegateCommand(FindTopCustomer);
+            FindTopCustomerCommand = findtopCustomerCommand;
 
             DelegateCommand showAccountCommand = new DelegateCommand(OnShowAccountView);
             ShowAccountCommand = showAccountCommand;
@@ -45,7 +45,7 @@ namespace BankApp.ViewModels
         public DelegateCommand AddCustomerCommand { get; }
         public DelegateCommand DeleteCustomerCommand { get; }
         public DelegateCommand SortCustomersCommand { get; }
-        public DelegateCommand FindMostValuedCustomerCommand { get; }
+        public DelegateCommand FindTopCustomerCommand { get; }
         public DelegateCommand ShowAccountCommand { get; }
         public DelegateCommand ShowCustomerInfoCommand { get; }
         public ObservableCollection<Customer> Customers { get; set; }
@@ -110,9 +110,12 @@ namespace BankApp.ViewModels
             toggle = !toggle;
         }
 
-        private void FindMostValuedCustomer()
+        private void FindTopCustomer()
         {
-            SelectedCustomer = customerService.GetMostValuedCustomers(1).First();
+            var topCustomer = customerService.GetTopCustomers(1).FirstOrDefault();
+
+            if (topCustomer != null)
+                SelectedCustomer = topCustomer;
         }
 
         private void OnShowAccountView()
