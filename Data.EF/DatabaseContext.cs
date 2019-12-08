@@ -7,7 +7,6 @@ namespace Data.EF
     {
         public DatabaseContext()
         {
-            base.Database.EnsureDeleted();
             base.Database.EnsureCreated();
         }
 

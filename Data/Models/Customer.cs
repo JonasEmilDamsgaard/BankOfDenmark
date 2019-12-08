@@ -2,21 +2,15 @@
 
 namespace Data.Models
 {
-    public class Customer : IEntity, ICloneable, IComparable
+    public class Customer : ICloneable, IComparable
     {
-        public Customer() // Needed for serialization
-        {
-        }
-
         public Customer(string fullName)
         {
             FullName = fullName;
             Account = new Account();
-            Guid = Guid.NewGuid();
         }
 
         public int Id { get; set; }
-        public Guid Guid { get; }
         public string SocialSecurityNumber { get; set; }
         public string FullName { get; set; }
         public string StreetName { get; set; }

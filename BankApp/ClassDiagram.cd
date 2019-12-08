@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BankApp.Services.AccountService" Collapsed="true">
+    <Position X="1" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACEAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Services\AccountService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BankApp.Services.CustomerService" Collapsed="true">
+    <Position X="3" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAgAABAAAAACAQCAgAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Services\CustomerService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BankApp.ViewModels.AccountViewModel">
+    <Position X="1" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIgIAAEAAAAAAAAAAAACSAAAAAgEUAAIQAQCAAAAg=</HashCode>
+      <FileName>ViewModels\AccountViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BankApp.ViewModels.CustomerInfoViewModel">
+    <Position X="3" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QEAAAIAAAAAAAAAAAAAAACQAAAQAAAUIAAAAQAAAAAo=</HashCode>
+      <FileName>ViewModels\CustomerInfoViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BankApp.ViewModels.CustomerViewModel">
+    <Position X="5.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAEAAIAgAACAQAAARACAECQEQLAAAAQAAAAQUCAgAAg=</HashCode>
+      <FileName>ViewModels\CustomerViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BankApp.App">
+    <Position X="9" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAECAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

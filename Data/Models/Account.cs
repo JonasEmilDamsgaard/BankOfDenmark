@@ -1,6 +1,6 @@
 ﻿namespace Data.Models
 {
-    public class Account : IEntity
+    public class Account
     {
         public int Id { get; set; }
         public double Balance { get; set; }

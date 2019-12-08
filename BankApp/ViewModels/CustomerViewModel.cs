@@ -21,23 +21,12 @@ namespace BankApp.ViewModels
             this.regionManager = regionManager;
             this.customerService = customerService;
 
-            DelegateCommand addCustomerCommand = new DelegateCommand(AddCustomer);
-            AddCustomerCommand = addCustomerCommand;
-
-            DelegateCommand deleteCustomerCommand = new DelegateCommand(DeleteCustomer);
-            DeleteCustomerCommand = deleteCustomerCommand;
-
-            DelegateCommand sortCustomersCommand = new DelegateCommand(SortCustomers);
-            SortCustomersCommand = sortCustomersCommand;
-
-            DelegateCommand findtopCustomerCommand = new DelegateCommand(FindTopCustomer);
-            FindTopCustomerCommand = findtopCustomerCommand;
-
-            DelegateCommand showAccountCommand = new DelegateCommand(OnShowAccountView);
-            ShowAccountCommand = showAccountCommand;
-
-            DelegateCommand showCustomerInfoCommand = new DelegateCommand(OnShowCustomerInfoView);
-            ShowCustomerInfoCommand = showCustomerInfoCommand;
+            AddCustomerCommand = new DelegateCommand(AddCustomer);
+            DeleteCustomerCommand = new DelegateCommand(DeleteCustomer);
+            SortCustomersCommand = new DelegateCommand(SortCustomers);
+            FindTopCustomerCommand = new DelegateCommand(FindTopCustomer);
+            ShowAccountCommand = new DelegateCommand(OnShowAccountView);
+            ShowCustomerInfoCommand = new DelegateCommand(OnShowCustomerInfoView);
 
             Customers = new ObservableCollection<Customer>();
         }

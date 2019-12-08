@@ -35,11 +35,11 @@
                 Grid.Column="2"
                 Content="{Binding SelectedCustomer.FullName}" />
             <Label
-                Grid.Row="2"
+                Grid.Row="1"
                 Grid.Column="1"
                 Content="Balance" />
             <Label
-                Grid.Row="2"
+                Grid.Row="1"
                 Grid.Column="2"
                 Content="{Binding SelectedCustomer.Account.Balance}" />
         </Grid>

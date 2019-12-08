@@ -19,14 +19,9 @@ namespace BankApp.ViewModels
             this.customerService = customerService;
             this.accountService = accountService;
 
-            DelegateCommand withDrawCommand = new DelegateCommand(OnWithdraw);
-            WithDrawCommand = withDrawCommand;
-
-            DelegateCommand depositCommand = new DelegateCommand(OnDeposit);
-            DepositCommand = depositCommand;
-
-            DelegateCommand goBackCommand = new DelegateCommand(OnGoBack);
-            GoBackCommand = goBackCommand;
+            WithDrawCommand = new DelegateCommand(OnWithdraw);
+            DepositCommand = new DelegateCommand(OnDeposit);
+            GoBackCommand = new DelegateCommand(OnGoBack);
         }
 
         public DelegateCommand WithDrawCommand { get; set; }

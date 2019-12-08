@@ -16,11 +16,8 @@ namespace BankApp.ViewModels
         {
             this.customerService = customerService;
 
-            DelegateCommand okCommand = new DelegateCommand(OnOkCommand);
-            OkCommand = okCommand;
-
-            DelegateCommand cancelCommand = new DelegateCommand(OnCancelCommand);
-            CancelCommand = cancelCommand;
+            OkCommand = new DelegateCommand(OnOkCommand);
+            CancelCommand = new DelegateCommand(OnCancelCommand);
         }
         public DelegateCommand OkCommand { get; }
         public DelegateCommand CancelCommand { get; }
