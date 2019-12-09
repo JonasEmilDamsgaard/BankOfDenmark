@@ -4,7 +4,6 @@ using BankApp.Services;
 using BankApp.ViewModels;
 using Data.DataAccess;
 using Data.DataAccess.Repositories;
-using Data.EF;
 using Data.EF.DataAccess;
 using Data.EF.DataAccess.Repositories;
 using Prism.Ioc;
