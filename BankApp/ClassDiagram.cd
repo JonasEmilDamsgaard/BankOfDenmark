@@ -14,7 +14,7 @@
       <FileName>Services\CustomerService.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="BankApp.ViewModels.AccountViewModel">
+  <Class Name="BankApp.ViewModels.AccountViewModel" Collapsed="true">
     <Position X="1" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAIgIAAEAAAAAAAAAAAACSAAAAAgEUAAIQAQCAAAAg=</HashCode>

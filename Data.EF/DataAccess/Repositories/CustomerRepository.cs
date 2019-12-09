@@ -5,15 +5,14 @@ using System.Linq.Expressions;
 using Data.DataAccess.Repositories;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 
 namespace Data.EF.DataAccess.Repositories
 {
     public class CustomerRepository : ICustomerRepository
     {
-        private readonly DbContext context;
+        private readonly CustomerContext context;
 
-        public CustomerRepository(DatabaseContext context)
+        public CustomerRepository(CustomerContext context)
         {
             this.context = context;
         }
@@ -24,7 +23,7 @@ namespace Data.EF.DataAccess.Repositories
 
         public IEnumerable<Customer> GetAll()
         {
-            return context.Set<Customer>().Include(c => c.Account).ToList();
+            return context.Customers.Include(c => c.Account);
         }
 
         public IEnumerable<Customer> Find(Expression<Func<Customer, bool>> filter)
@@ -34,22 +33,22 @@ namespace Data.EF.DataAccess.Repositories
 
         public void Add(Customer entity)
         {
-            context.Set<Customer>().Add(entity ?? throw new ArgumentNullException(nameof(entity)));
+            context.Customers.Add(entity ?? throw new ArgumentNullException(nameof(entity)));
         }
 
         public void Remove(Customer entity)
         {
-            context.Set<Customer>().Remove(entity ?? throw new ArgumentNullException(nameof(entity)));
+            context.Customers.Remove(entity ?? throw new ArgumentNullException(nameof(entity)));
         }
 
         public IEnumerable<Customer> GetTopCustomers(int numberOfCustomers)
         {
-            if (numberOfCustomers > context.Set<Customer>().ToList().Count)
+            if (numberOfCustomers > context.Customers.ToList().Count)
             {
                 return new List<Customer>();
             }
 
-            return context.Set<Customer>().OrderByDescending(x => x.Account.Balance).Take(numberOfCustomers).ToList();
+            return context.Customers.OrderByDescending(x => x.Account.Balance).Take(numberOfCustomers).ToList();
         }
     }
 }

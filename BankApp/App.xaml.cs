@@ -25,7 +25,7 @@ namespace BankApp
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterSingleton(typeof(DatabaseContext));
+            containerRegistry.RegisterSingleton(typeof(CustomerContext));
             containerRegistry.RegisterSingleton(typeof(ICustomerRepository), typeof(CustomerRepository));
             containerRegistry.RegisterSingleton(typeof(IUnitOfWork), typeof(UnitOfWork));
             containerRegistry.RegisterSingleton(typeof(CustomerService));

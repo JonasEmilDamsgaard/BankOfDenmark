@@ -6,9 +6,9 @@ namespace Data.EF.DataAccess
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly DatabaseContext context;
+        private readonly CustomerContext context;
 
-        public UnitOfWork(DatabaseContext context)
+        public UnitOfWork(CustomerContext context)
         {
             this.context = context;
             Customers = new CustomerRepository(context);

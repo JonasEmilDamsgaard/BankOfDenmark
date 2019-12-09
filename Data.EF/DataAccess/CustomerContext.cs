@@ -1,11 +1,11 @@
 ﻿using Data.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Data.EF
+namespace Data.EF.DataAccess
 {
-    public class DatabaseContext : DbContext
+    public class CustomerContext : DbContext
     {
-        public DatabaseContext()
+        public CustomerContext()
         {
             base.Database.EnsureCreated();
         }
@@ -14,7 +14,7 @@ namespace Data.EF
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=db.sqlite;");
+            optionsBuilder.UseSqlite("Filename=./Database.db");
         }
     }
 }
