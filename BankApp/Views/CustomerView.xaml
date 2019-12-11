@@ -135,6 +135,12 @@
                 <ColumnDefinition Width="120" />
                 <ColumnDefinition Width="120" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="25" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="10" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -151,6 +157,31 @@
                 Command="{Binding FindTopCustomerCommand}">
                 Find top customer
             </Button>
+            <Label
+                Grid.Column="4"
+                Margin="2,2,2,2"
+                Content="Total deposits:"
+                Foreground="DarkGreen"/>
+            <Label
+                Grid.Column="5"
+                Margin="0,2,0,2"
+                Content="{Binding TotalCustomerDeposits}"
+                Foreground="DarkGreen"/>
+            <Label
+                Grid.Column="6"
+                Margin="0,2,0,2"
+                Content="|"
+                HorizontalAlignment="Center"/>
+            <Label
+                Grid.Column="7"
+                Margin="2,2,2,2"
+                Content="Total withdraws:"
+                Foreground="DarkRed"/>
+            <Label
+                Grid.Column="8"
+                Margin="0,2,0,2"
+                Content="{Binding TotalCustomerWithdraws}" 
+                Foreground="DarkRed"/>
         </Grid>
     </StackPanel>
 </UserControl>

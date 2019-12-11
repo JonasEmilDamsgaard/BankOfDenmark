@@ -15,6 +15,8 @@ namespace BankApp.ViewModels
         private Customer selectedCustomer;
         private bool toggle;
         private string filter;
+        private double totalCustomerDeposits;
+        private double totalCustomerWithdraws;
 
         public CustomerViewModel(IRegionManager regionManager, CustomerService customerService)
         {
@@ -65,10 +67,28 @@ namespace BankApp.ViewModels
             }
         }
 
-        private void FilterCustomers()
+        public double TotalCustomerDeposits
         {
-            Customers.Clear();
-            Customers.AddRange(customerService.FilterCustomers(Filter));
+            get => totalCustomerDeposits;
+            set
+            {
+                if (totalCustomerDeposits == value) return;
+
+                totalCustomerDeposits = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public double TotalCustomerWithdraws
+        {
+          get => totalCustomerWithdraws;
+          set
+          {
+            if (totalCustomerWithdraws == value) return;
+
+            totalCustomerWithdraws = value;
+            RaisePropertyChanged();
+          }
         }
 
         private void AddCustomer()
@@ -87,6 +107,12 @@ namespace BankApp.ViewModels
             SelectedCustomer = Customers.LastOrDefault();
         }
 
+        private void FilterCustomers()
+        {
+          Customers.Clear();
+          Customers.AddRange(customerService.FilterCustomers(Filter));
+        }
+
         private void SortCustomers()
         {
             var customers = Customers.ToList();
@@ -97,6 +123,25 @@ namespace BankApp.ViewModels
                 : customers.OrderBy(c => c.FullName));
 
             toggle = !toggle;
+        }
+
+        private void CalculateStatistics()
+        {
+            double deposits = 0;
+            double withdraws = 0;
+
+            foreach (var customer in Customers)
+            {
+              if (customer.Account.Balance > 0)
+                deposits += customer.Account.Balance;
+              else
+              {
+                withdraws += customer.Account.Balance;
+              }
+            }
+
+            TotalCustomerDeposits = deposits;
+            TotalCustomerWithdraws = withdraws;
         }
 
         private void FindTopCustomer()
@@ -127,6 +172,8 @@ namespace BankApp.ViewModels
         {
             Customers.Clear();
             Customers.AddRange(customerService.GetAllCustomers);
+
+            CalculateStatistics();
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
