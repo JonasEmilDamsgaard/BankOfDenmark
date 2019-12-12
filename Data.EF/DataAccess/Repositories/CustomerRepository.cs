@@ -16,20 +16,11 @@ namespace Data.EF.DataAccess.Repositories
         {
             this.context = context;
         }
-        public Customer GetById(int id)
-        {
-            return GetAll().Single(c => c.Id == id);
-        }
+        public Customer GetById(int id) => GetAll().Single(c => c.Id == id);
 
-        public IEnumerable<Customer> GetAll()
-        {
-            return context.Customers.Include(c => c.Account);
-        }
+        public IEnumerable<Customer> GetAll() => context.Customers.Include(c => c.Account);
 
-        public IEnumerable<Customer> Find(Expression<Func<Customer, bool>> filter)
-        {
-            return GetAll().Where(filter.Compile());
-        }
+        public IEnumerable<Customer> Find(Expression<Func<Customer, bool>> filter) => GetAll().Where(filter.Compile());
 
         public void Add(Customer entity)
         {

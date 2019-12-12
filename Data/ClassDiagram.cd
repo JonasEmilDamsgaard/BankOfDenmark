@@ -16,21 +16,21 @@
     </TypeIdentifier>
   </Class>
   <Interface Name="Data.DataAccess.Repositories.ICustomerRepository">
-    <Position X="3.75" Y="3" Width="2" />
+    <Position X="3.5" Y="4.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DataAccess\Repositories\ICustomerRepository.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Data.DataAccess.Repositories.IRepository&lt;T&gt;">
-    <Position X="3.75" Y="0.5" Width="2" />
+    <Position X="3.5" Y="2.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAAAAAAAAAAABAAAAAAIAAAAAgAAAAAAAIA=</HashCode>
       <FileName>DataAccess\Repositories\IRepository.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Data.DataAccess.IUnitOfWork">
-    <Position X="3.75" Y="5" Width="2" />
+    <Position X="3.5" Y="0.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAEAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DataAccess\IUnitOfWork.cs</FileName>
