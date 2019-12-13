@@ -10,7 +10,7 @@ namespace BankApp.ViewModels
     {
         private readonly CustomerService customerService;
         private IRegionNavigationJournal journal;
-        private Customer cloneCustomer;
+        private Customer selectedCustomer;
 
         public CustomerInfoViewModel(CustomerService customerService)
         {
@@ -24,11 +24,11 @@ namespace BankApp.ViewModels
 
         public Customer SelectedCustomer
         {
-            get => cloneCustomer;
+            get => selectedCustomer;
             set
             {
-                if (cloneCustomer == value) return;
-                cloneCustomer = value;
+                if (selectedCustomer == value) return;
+                selectedCustomer = value;
                 RaisePropertyChanged();
             }
         }
@@ -57,8 +57,8 @@ namespace BankApp.ViewModels
             NavigationParameters parameter = navigationContext.Parameters;
             var id = parameter.GetValue<int>("selectedCustomer");
 
-            var selectedCustomer = customerService.GetSelectedCustomer(id);
-            SelectedCustomer = selectedCustomer.Clone() as Customer;
+            var c = customerService.GetSelectedCustomer(id);
+            SelectedCustomer = c.Clone() as Customer;
 
             journal = navigationContext.NavigationService.Journal;
         }

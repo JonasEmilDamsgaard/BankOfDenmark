@@ -43,7 +43,7 @@ namespace BankApp.Services
             unitOfWork.Complete();
         }
 
-        public Customer EditCustomer(Customer selectedCustomer)
+        public void EditCustomer(Customer selectedCustomer)
         {
             var c = unitOfWork.Customers.GetById(selectedCustomer.Id);
             c.FullName = selectedCustomer.FullName;
@@ -54,8 +54,6 @@ namespace BankApp.Services
             c.StreetName = selectedCustomer.StreetName;
             c.StreetNumber = selectedCustomer.StreetNumber;
             unitOfWork.Complete();
-
-            return c;
         }
 
         public IEnumerable<Customer> FilterCustomers(string filter)

@@ -20,9 +20,9 @@ namespace Data.Models
         public int PhoneNumber { get; set; }
         public Account Account { get; set; }
 
-        public object Clone()
+        public Object Clone()
         {
-            return MemberwiseClone(); // Shallow clone
+            return MemberwiseClone();
         }
 
         public int CompareTo(object obj)
