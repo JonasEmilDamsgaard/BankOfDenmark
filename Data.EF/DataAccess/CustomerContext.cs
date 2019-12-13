@@ -7,6 +7,7 @@ namespace Data.EF.DataAccess
     {
         public CustomerContext()
         {
+            //base.Database.EnsureDeleted();
             base.Database.EnsureCreated();
         }
 

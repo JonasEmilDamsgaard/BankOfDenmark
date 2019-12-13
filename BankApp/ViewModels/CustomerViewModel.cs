@@ -105,7 +105,8 @@ namespace BankApp.ViewModels
             Customers.Remove(SelectedCustomer);
 
             SelectedCustomer = Customers.LastOrDefault();
-        }
+            CalculateStatistics();
+    }
 
         private void FilterCustomers()
         {
