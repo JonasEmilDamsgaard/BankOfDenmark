@@ -2,7 +2,7 @@
 
 namespace Data.Models
 {
-    public class Customer : ICloneable, IComparable
+    public class Customer : ICloneable
     {
         public Customer(string fullName)
         {
@@ -23,12 +23,6 @@ namespace Data.Models
         public Object Clone()
         {
             return MemberwiseClone();
-        }
-
-        public int CompareTo(object obj)
-        {
-            Customer customer = (Customer)obj;
-            return string.CompareOrdinal(FullName, customer.FullName);
         }
     }
 }

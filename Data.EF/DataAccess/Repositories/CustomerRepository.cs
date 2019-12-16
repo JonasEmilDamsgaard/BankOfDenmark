@@ -16,6 +16,7 @@ namespace Data.EF.DataAccess.Repositories
         {
             this.context = context;
         }
+
         public Customer GetById(int id) => GetAll().Single(c => c.Id == id);
 
         public IEnumerable<Customer> GetAll() => context.Customers.Include(c => c.Account);

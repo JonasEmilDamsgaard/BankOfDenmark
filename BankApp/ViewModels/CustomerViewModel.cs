@@ -112,6 +112,7 @@ namespace BankApp.ViewModels
         {
           Customers.Clear();
           Customers.AddRange(customerService.FilterCustomers(Filter));
+          SelectedCustomer = Customers.LastOrDefault();
         }
 
         private void SortCustomers()

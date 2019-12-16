@@ -20,7 +20,7 @@ namespace NUnitTestProject
       int init = customerService.GetAllCustomers.Count();
 
       // Act
-      var costumer = customerService.AddCustomer();
+      customerService.AddCustomer();
 
       // Assert
       Assert.AreEqual(init+1, customerService.GetAllCustomers.Count());
